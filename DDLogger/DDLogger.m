@@ -127,7 +127,12 @@ void UncaughtExceptionHandler(NSException* exception);
 
 - (void)logWithFile:(NSString *)file lineNumber:(int)lineNumber functionName:(NSString *)functionName body:(NSString *)body{
     NSString *fileName = [file lastPathComponent];
-    NSString *logMessage = [NSString stringWithFormat:@"<%@ : %d %@> %@",fileName,lineNumber,functionName,body];
+    NSString *logMessage;
+    if (functionName) {
+        logMessage = [NSString stringWithFormat:@"<%@ : %d Line %@> %@",fileName,lineNumber,functionName,body];
+    } else {
+        logMessage = [NSString stringWithFormat:@"<%@ : %d Line> %@",fileName,lineNumber,body];
+    }
     NSString *logString = [self formatLogMessage:logMessage];
     fprintf(stderr, "%s",[logString UTF8String]);
     [self.logView appendLog:logString];
@@ -214,12 +219,31 @@ void UncaughtExceptionHandler(NSException* exception);
 
 @end
 
-void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, NSString *format, ...) {
+void DDExtendNSLog(const char *file, int lineNumber, const char *functionName,DDLogLevel logLevel, NSString *format, ...) {
     va_list ap;
     va_start (ap, format);
     NSString *body = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end (ap);
-    [[DDLogger sharedInstance] logWithFile:[NSString stringWithUTF8String:file] lineNumber:lineNumber functionName:[NSString stringWithUTF8String:functionName] body:body];
+    switch (logLevel) {
+        case DDLogLevelNone:
+            break;
+        case DDLogLevelError:
+            body = [@"ERRORLEVEL:" stringByAppendingString:body];
+            break;
+        case DDLogLevelWarning:
+            body = [@"WARNINLEVEL:" stringByAppendingString:body];
+            break;
+        case DDLogLevelInfo:
+            body = [@"INFOLEVEL:" stringByAppendingString:body];
+            break;
+        default:
+            break;
+    }
+    if (functionName == NULL) {
+        [[DDLogger sharedInstance] logWithFile:[NSString stringWithUTF8String:file] lineNumber:lineNumber functionName:nil body:body];
+    } else {
+        [[DDLogger sharedInstance] logWithFile:[NSString stringWithUTF8String:file] lineNumber:lineNumber functionName:[NSString stringWithUTF8String:functionName] body:body];
+    }
 }
 
 void UncaughtExceptionHandler(NSException* exception){

@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-#define DDLog(args...) DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+typedef NS_ENUM(NSUInteger, DDLogLevel) {
+    DDLogLevelNone = 0,
+    DDLogLevelError,
+    DDLogLevelWarning,
+    DDLogLevelInfo
+};
 
-void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, NSString *format, ...);
+#define DDLog(args...) DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelNone,args);
+
+void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, DDLogLevel logLevel, NSString *format, ...);
 
 @interface DDLogger : NSObject
 
