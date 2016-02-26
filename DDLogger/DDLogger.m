@@ -11,17 +11,21 @@
 #import "DDLogger.h"
 #import "DDLogManager.h"
 #import "DDLogConsoleView.h"
+#import "DDLogListTableViewController.h"
 
 
 void UncaughtExceptionHandler(NSException* exception);
 
-@interface DDLogger ()
+@interface DDLogger ()<DDLogListTableViewControllerDelegate>
 
 @property (nonatomic, strong) DDLogConsoleView *logView;
 
 @property (nonatomic, strong) DDLogManager *logManger;
 
 @property (nonatomic, strong) NSFileHandle *writeLogFileHandle;
+
+
+@property (nonatomic, copy) DDPikerLogEventHandler pikerLogEventHandler;
 
 @end
 
@@ -75,8 +79,10 @@ void UncaughtExceptionHandler(NSException* exception);
     NSString *logFilePath = [self.logManger currentLogFilePath];
     self.writeLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
     [self.writeLogFileHandle seekToEndOfFile];
-    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
-    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+    if ([self shouldRedirect]) {
+        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
+        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+    }
     NSSetUncaughtExceptionHandler (&UncaughtExceptionHandler);
 }
 
@@ -86,13 +92,10 @@ void UncaughtExceptionHandler(NSException* exception);
     self.logManger = nil;
 }
 
+#pragma mark - Log日志目录接口
 
 - (NSString *)logDirectory{
     return self.logManger.cacheDirectory;
-}
-
-- (NSString *)logFilePathWithFileName:(NSString *)fileName{
-    return [self.logManger.cacheDirectory stringByAppendingPathComponent:fileName];
 }
 
 - (NSArray *)getLogList:(NSError **)error{
@@ -123,6 +126,23 @@ void UncaughtExceptionHandler(NSException* exception);
     }
 }
 
+#pragma mark - log 拾取器
+
+- (void)pikerLogWithViewController:(UIViewController *)viewController
+                      eventHandler:(DDPikerLogEventHandler)handler{
+    if (!handler) {
+        return;
+    }
+    self.pikerLogEventHandler = handler;
+    DDLogListTableViewController *logListViewController = [[DDLogListTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    logListViewController.delegate = self;
+    logListViewController.dataSoure = [self.logManger getLogList:nil];
+    logListViewController.logDirectory = self.logDirectory;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:logListViewController];
+    [navigationController.navigationBar setTranslucent:NO];
+    [viewController presentViewController:navigationController animated:YES completion:nil];
+}
+
 #pragma mark - Private Methods
 
 - (void)logWithFile:(NSString *)file lineNumber:(int)lineNumber functionName:(NSString *)functionName body:(NSString *)body{
@@ -136,9 +156,7 @@ void UncaughtExceptionHandler(NSException* exception);
     NSString *logString = [self formatLogMessage:logMessage];
     fprintf(stderr, "%s",[logString UTF8String]);
     [self.logView appendLog:logString];
-    if ([self shouldRedirect]) {
-        [self.writeLogFileHandle writeData:[logString dataUsingEncoding:NSUTF8StringEncoding]];
-    }
+    [self.writeLogFileHandle writeData:[logString dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (void)uncaughtExceptionHandler:(NSException *)exception{
@@ -215,6 +233,18 @@ void UncaughtExceptionHandler(NSException* exception);
     NSString *dateStr = [self getDateTimeStringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *crashString = [NSString stringWithFormat:@"<- %@ ->[ Uncaught Exception ]\r\nName: %@, Reason: %@\r\n[ Fe Symbols Start ]\r\n%@[ Fe Symbols End ]\r\n\r\n", dateStr, name, reason, strSymbols];
     return crashString;
+}
+
+#pragma mark - DDLogListTableViewControllerDelegate
+
+- (void)logListTableViewController:(DDLogListTableViewController *)viewController didSelectedLog:(NSArray *)logList{
+    self.pikerLogEventHandler(self.logDirectory, logList);
+    self.pikerLogEventHandler = nil;
+}
+
+- (void)logListTableViewControllerDidCancel{
+    self.pikerLogEventHandler(self.logDirectory, nil);
+    self.pikerLogEventHandler = nil;
 }
 
 @end

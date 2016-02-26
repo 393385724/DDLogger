@@ -29,7 +29,7 @@
         
         self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
         self.textView.font = [UIFont fontWithName:@"Courier" size:12];
-        self.textView.backgroundColor = [UIColor clearColor];
+        self.textView.backgroundColor = self.backgroundColor;
         self.textView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         self.textView.textColor = [UIColor greenColor];
         self.textView.editable = NO;

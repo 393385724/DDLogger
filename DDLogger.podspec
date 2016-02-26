@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|  
   s.name             = "DDLogger"  
-  s.version          = "0.0.2"  
-  s.summary          = "Simple, pretty and powerful logger for iOS"  
+  s.version          = "1.0.0"  
+  s.summary          = "Simple, pretty and powerful logger for iOS with piker log 、log viewer"  
   s.homepage         = "https://github.com/393385724/DDLogger"  
   s.license          = 'MIT'  
   s.author           = { "llg" => "393385724@qq.com" }  
@@ -12,5 +12,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true  
   s.source_files = 'DDLogger/*.{m,h}'
   s.frameworks = 'Foundation', 'CoreGraphics', 'UIKit'
+  s.dependency 'ICTextView', '~> 2.0.1'
 
 end  

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class UIViewController;
 
 typedef NS_ENUM(NSUInteger, DDLogLevel) {
     DDLogLevelNone = 0,
@@ -18,6 +19,14 @@ typedef NS_ENUM(NSUInteger, DDLogLevel) {
 #define DDLog(args...) DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelNone,args);
 
 void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, DDLogLevel logLevel, NSString *format, ...);
+
+/**
+ *  @brief 选取log日志回调结果
+ *
+ *  @param logDirectory log缓存目录
+ *  @param logList      选中的log日志数组
+ */
+typedef void(^DDPikerLogEventHandler) (NSString *logDirectory, NSArray *logList);
 
 @interface DDLogger : NSObject
 
@@ -58,22 +67,13 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
  */
 - (void)stopLog;
 
-//*************log文件获取***************
+//*************log文件获取接口***************
 /**
  *  @brief  log存在的目录绝对目录
  *
  *  @return NSString
  */
 - (NSString *)logDirectory;
-
-/**
- *  @brief  根据已存在的log名字返回相对路径
- *
- *  @param fileName 已存在的log
- *
- *  @return NSString
- */
-- (NSString *)logFilePathWithFileName:(NSString *)fileName;
 
 /**
  *  @brief 获取本地所有的log列表
@@ -102,5 +102,16 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
  *  @brief 隐藏logView
  */
 - (void)hidenLogView;
+
+
+//*************log Piker***************
+/**
+ *  @brief 查看本地存在的log日志
+ *
+ *  @param viewController 当前的Viewontroller
+ *  @param handler        选取回调结果
+ */
+- (void)pikerLogWithViewController:(UIViewController *)viewController
+                      eventHandler:(DDPikerLogEventHandler)handler;
 
 @end
