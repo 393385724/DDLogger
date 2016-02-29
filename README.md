@@ -4,7 +4,7 @@ a log redirect to file
 将NSLog替换为DDLog或者重新定义NSLog参见DDLog的定义可以在release模式下重向log到预先定义的日志目录
 使用方法：
 前提使用的cocopods
-pod 'DDLogger', '~> 1.0.0'
+pod 'DDLogger', '~> 1.0.1'
 
 ##开始收集log
 >- (void)startLog;
