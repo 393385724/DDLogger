@@ -10,9 +10,11 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'  
   s.ios.deployment_target = '7.0'  
   s.requires_arc = true  
-  s.source_files = 'DDLogger/*.{m,h}'
-  s.public_header_files = 'DDLogger/DDLogger.h'
-  s.resource = 'DDLogger/*.{xib,xcassets}'
+  
+  s.ios.source_files = 'DDLogger/*.{h,m}'
+  #s.public_header_files = 'DDLogger/DDLogger.h'
+  s.ios.resources = ['DDLogger/*.png']
+  
   s.frameworks = 'Foundation', 'CoreGraphics', 'UIKit'
   s.dependency 'ICTextView', '~> 2.0.1'
 
