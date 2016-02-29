@@ -8,29 +8,46 @@ pod 'DDLogger', '~> 1.0.0'
 
 ##开始收集log
 >- (void)startLog;
->###使用方法
+>
 > >@code
+> >
 > >- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+> >
 > >      [[DDLogger sharedInstance] startLog];
+> >
 > >       return YES;
+> >
 > >}
+> >
 > >@endcode
+> >
 
 ##开始收集log，并配置默认参数
 >
 >  @param maxLogAge      log保存在本地的最长时间， 单位/s，0代表使用默认值30天
+>
 >  @param maxLogSize     log在本地保存最大的空间，单位/bytes，0代表使用默认值100M
+>
 >  @param cacheDirectory log缓存的绝对目录，nil代表使用默认值Library/Caches/DDLog
+>
 >- (void)startLogWithMaxLogAge:(NSUInteger)maxLogAge maxLogSize:(NSUInteger)maxLogSize cacheDirectory:(NSString *)cacheDirectory;
-> ###使用方法
+>
 > >@code
+> >
 > >- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+> >
 > >        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+> >
 > >        NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"HMLOG"];
+> >
 > >        [[DDLogger sharedInstance] startLogWithMaxLogAge:60*60*24*7 maxLogSize:1024*1024*5 cacheDirectory:cacheDirectory]; 
+> >
 > >        return YES;
+> >
 > > }
+> >
 > > @endcode
+> >
 
 ##停止收集log##
 >- (void)stopLog;
@@ -55,6 +72,7 @@ pod 'DDLogger', '~> 1.0.0'
 ##查看本地存在的log日志
 >
 >  @param viewController 当前的Viewontroller
+>
 >  @param handler        选取回调结果
 >
 >- (void)pikerLogWithViewController:(UIViewController *)viewController eventHandler:(DDPikerLogEventHandler)handler;
