@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true  
   
   s.ios.source_files = 'DDLogger/*.{h,m}'
-  #s.public_header_files = 'DDLogger/DDLogger.h'
+  s.public_header_files = 'DDLogger/DDLogger.h'
   s.ios.resources = ['DDLogger/*.png','DDLogger/*.xib']
   
   s.frameworks = 'Foundation', 'CoreGraphics', 'UIKit'
