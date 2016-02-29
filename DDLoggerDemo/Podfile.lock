@@ -1,0 +1,13 @@
+PODS:
+  - DDLogger (1.0.0):
+    - ICTextView (~> 2.0.1)
+  - ICTextView (2.0.1)
+
+DEPENDENCIES:
+  - DDLogger (~> 1.0.0)
+
+SPEC CHECKSUMS:
+  DDLogger: ab2f0e3fb3147dad7d541312963686c7b61cd441
+  ICTextView: 937aca5dd49e39e9cca41ababe8c55bf99c634fc
+
+COCOAPODS: 0.39.0

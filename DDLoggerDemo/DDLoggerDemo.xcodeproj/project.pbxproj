@@ -1,0 +1,387 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9090AF911C83E56900169AE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AF901C83E56900169AE2 /* main.m */; };
+		9090AF941C83E56900169AE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AF931C83E56900169AE2 /* AppDelegate.m */; };
+		9090AF9A1C83E56900169AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9090AF981C83E56900169AE2 /* Main.storyboard */; };
+		9090AF9C1C83E56900169AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9090AF9B1C83E56900169AE2 /* Assets.xcassets */; };
+		9090AF9F1C83E56900169AE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9090AF9D1C83E56900169AE2 /* LaunchScreen.storyboard */; };
+		9090AFA91C83E69A00169AE2 /* DDMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AFA71C83E69A00169AE2 /* DDMainViewController.m */; };
+		9090AFAA1C83E69A00169AE2 /* DDMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9090AFA81C83E69A00169AE2 /* DDMainViewController.xib */; };
+		DF68FF43564E3EA419E4F36C /* libPods-DDLoggerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B564806C5CA1E516DBAA5D /* libPods-DDLoggerDemo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		51B564806C5CA1E516DBAA5D /* libPods-DDLoggerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDLoggerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9090AF8C1C83E56900169AE2 /* DDLoggerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDLoggerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9090AF901C83E56900169AE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9090AF921C83E56900169AE2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9090AF931C83E56900169AE2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9090AF991C83E56900169AE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9090AF9B1C83E56900169AE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9090AF9E1C83E56900169AE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9090AFA01C83E56900169AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9090AFA61C83E69A00169AE2 /* DDMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMainViewController.h; sourceTree = "<group>"; };
+		9090AFA71C83E69A00169AE2 /* DDMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMainViewController.m; sourceTree = "<group>"; };
+		9090AFA81C83E69A00169AE2 /* DDMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDMainViewController.xib; sourceTree = "<group>"; };
+		AF99DD1023C1FCDEF3B99DA2 /* Pods-DDLoggerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		DD607CEB7B0F45EBEC6F51BD /* Pods-DDLoggerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9090AF891C83E56900169AE2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF68FF43564E3EA419E4F36C /* libPods-DDLoggerDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2E11581431372BCC952407F6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AF99DD1023C1FCDEF3B99DA2 /* Pods-DDLoggerDemo.debug.xcconfig */,
+				DD607CEB7B0F45EBEC6F51BD /* Pods-DDLoggerDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		62D747A4E4F0A24A2BBB304D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				51B564806C5CA1E516DBAA5D /* libPods-DDLoggerDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9090AF831C83E56900169AE2 = {
+			isa = PBXGroup;
+			children = (
+				9090AF8E1C83E56900169AE2 /* DDLoggerDemo */,
+				9090AF8D1C83E56900169AE2 /* Products */,
+				2E11581431372BCC952407F6 /* Pods */,
+				62D747A4E4F0A24A2BBB304D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9090AF8D1C83E56900169AE2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9090AF8C1C83E56900169AE2 /* DDLoggerDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9090AF8E1C83E56900169AE2 /* DDLoggerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				9090AF921C83E56900169AE2 /* AppDelegate.h */,
+				9090AF931C83E56900169AE2 /* AppDelegate.m */,
+				9090AFA61C83E69A00169AE2 /* DDMainViewController.h */,
+				9090AFA71C83E69A00169AE2 /* DDMainViewController.m */,
+				9090AFA81C83E69A00169AE2 /* DDMainViewController.xib */,
+				9090AF981C83E56900169AE2 /* Main.storyboard */,
+				9090AF9B1C83E56900169AE2 /* Assets.xcassets */,
+				9090AF9D1C83E56900169AE2 /* LaunchScreen.storyboard */,
+				9090AFA01C83E56900169AE2 /* Info.plist */,
+				9090AF8F1C83E56900169AE2 /* Supporting Files */,
+			);
+			path = DDLoggerDemo;
+			sourceTree = "<group>";
+		};
+		9090AF8F1C83E56900169AE2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9090AF901C83E56900169AE2 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9090AF8B1C83E56900169AE2 /* DDLoggerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9090AFA31C83E56900169AE2 /* Build configuration list for PBXNativeTarget "DDLoggerDemo" */;
+			buildPhases = (
+				08DC2ABD9C19817B0FC6A980 /* Check Pods Manifest.lock */,
+				9090AF881C83E56900169AE2 /* Sources */,
+				9090AF891C83E56900169AE2 /* Frameworks */,
+				9090AF8A1C83E56900169AE2 /* Resources */,
+				C65B4BE5B2C8C3C8AEB8CAF6 /* Embed Pods Frameworks */,
+				20624FDA6DC81F73606408CD /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DDLoggerDemo;
+			productName = DDLoggerDemo;
+			productReference = 9090AF8C1C83E56900169AE2 /* DDLoggerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9090AF841C83E56900169AE2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = LiLingang;
+				TargetAttributes = {
+					9090AF8B1C83E56900169AE2 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 9090AF871C83E56900169AE2 /* Build configuration list for PBXProject "DDLoggerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9090AF831C83E56900169AE2;
+			productRefGroup = 9090AF8D1C83E56900169AE2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9090AF8B1C83E56900169AE2 /* DDLoggerDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9090AF8A1C83E56900169AE2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9090AF9F1C83E56900169AE2 /* LaunchScreen.storyboard in Resources */,
+				9090AFAA1C83E69A00169AE2 /* DDMainViewController.xib in Resources */,
+				9090AF9C1C83E56900169AE2 /* Assets.xcassets in Resources */,
+				9090AF9A1C83E56900169AE2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08DC2ABD9C19817B0FC6A980 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		20624FDA6DC81F73606408CD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C65B4BE5B2C8C3C8AEB8CAF6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9090AF881C83E56900169AE2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9090AF941C83E56900169AE2 /* AppDelegate.m in Sources */,
+				9090AF911C83E56900169AE2 /* main.m in Sources */,
+				9090AFA91C83E69A00169AE2 /* DDMainViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9090AF981C83E56900169AE2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9090AF991C83E56900169AE2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9090AF9D1C83E56900169AE2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9090AF9E1C83E56900169AE2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9090AFA11C83E56900169AE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9090AFA21C83E56900169AE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9090AFA41C83E56900169AE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF99DD1023C1FCDEF3B99DA2 /* Pods-DDLoggerDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DDLoggerDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = DD.DDLoggerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9090AFA51C83E56900169AE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD607CEB7B0F45EBEC6F51BD /* Pods-DDLoggerDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DDLoggerDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = DD.DDLoggerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9090AF871C83E56900169AE2 /* Build configuration list for PBXProject "DDLoggerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9090AFA11C83E56900169AE2 /* Debug */,
+				9090AFA21C83E56900169AE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9090AFA31C83E56900169AE2 /* Build configuration list for PBXNativeTarget "DDLoggerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9090AFA41C83E56900169AE2 /* Debug */,
+				9090AFA51C83E56900169AE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9090AF841C83E56900169AE2 /* Project object */;
+}

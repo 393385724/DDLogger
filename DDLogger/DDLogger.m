@@ -62,10 +62,6 @@ void UncaughtExceptionHandler(NSException* exception);
 - (void)startLogWithMaxLogAge:(NSUInteger)maxLogAge
                    maxLogSize:(NSUInteger)maxLogSize
                cacheDirectory:(NSString *)cacheDirectory{
-    if (![self shouldRedirect]) {
-        [self stopLog];
-        return;
-    }
     if (maxLogAge > 0) {
         self.logManger.maxLogAge = maxLogAge;
     }

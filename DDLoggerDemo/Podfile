@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios,'7.0'
+
+workspace 'DDLoggerDemo'
+
+target :DDLoggerDemo do
+  xcodeproj 'DDLoggerDemo'
+    pod 'DDLogger', '~> 1.0.0'
+end
