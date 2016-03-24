@@ -49,7 +49,12 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
 
 - (void)rightButtonAction{
     if (self.delegate && [self.delegate respondsToSelector:@selector(logListTableViewController:didSelectedLog:)]) {
-        [self.delegate logListTableViewController:self didSelectedLog:[_selectedLogSet allObjects]];
+        NSMutableArray *selectedLogFilePaths = [NSMutableArray arrayWithCapacity:[_selectedLogSet count]];
+        for (NSString *fileName in [_selectedLogSet allObjects]) {
+            NSString *filePath = [self.dataSource logListTableViewController:self logFilePathWithFileName:fileName];
+            [selectedLogFilePaths addObject:filePath];
+        }
+        [self.delegate logListTableViewController:self didSelectedLog:selectedLogFilePaths];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -87,8 +92,8 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
     viewController.delegate = self;
     viewController.currentIndexPath = indexPath;
     viewController.hasPiker = [_selectedLogSet containsObject:fileName];
-    viewController.disPlayName = [fileName stringByReplacingOccurrencesOfString:@".log" withString:@""];
-    viewController.logFilePath = [self.logDirectory stringByAppendingPathComponent:fileName];
+    viewController.disPlayName = [fileName stringByDeletingPathExtension];
+    viewController.logFilePath = [self.dataSource logListTableViewController:self logFilePathWithFileName:fileName];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

@@ -16,11 +16,13 @@
 
 void UncaughtExceptionHandler(NSException* exception);
 
-@interface DDLogger ()<DDLogListTableViewControllerDelegate>
+@interface DDLogger ()<DDLogListTableViewControllerDelegate, DDLogListTableViewControllerDataSoure>
+
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @property (nonatomic, strong) DDLogConsoleView *logView;
 
-@property (nonatomic, strong) DDLogManager *logManger;
+@property (nonatomic, strong) DDLogManager *logManager;
 
 @property (nonatomic, strong) NSFileHandle *writeLogFileHandle;
 
@@ -47,8 +49,11 @@ void UncaughtExceptionHandler(NSException* exception);
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.logManger = [[DDLogManager alloc] init];
+        self.logManager = [[DDLogManager alloc] init];
         _hidenLogView = YES;
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        [self.dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
+        [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     }
     return self;
 }
@@ -63,39 +68,49 @@ void UncaughtExceptionHandler(NSException* exception);
                    maxLogSize:(NSUInteger)maxLogSize
                cacheDirectory:(NSString *)cacheDirectory{
     if (maxLogAge > 0) {
-        self.logManger.maxLogAge = maxLogAge;
+        self.logManager.maxLogAge = maxLogAge;
     }
     if (maxLogSize > 0) {
-        self.logManger.maxLogSize = maxLogSize;
+        self.logManager.maxLogSize = maxLogSize;
     }
     if (cacheDirectory) {
-        self.logManger.cacheDirectory = cacheDirectory;
+        self.logManager.cacheDirectory = cacheDirectory;
     }
-    
-    NSString *logFilePath = [self.logManger currentLogFilePath];
-    self.writeLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
-    [self.writeLogFileHandle seekToEndOfFile];
-    if ([self shouldRedirect]) {
-        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
-        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
-    }
-    NSSetUncaughtExceptionHandler (&UncaughtExceptionHandler);
 }
 
 - (void)stopLog{
     [self.writeLogFileHandle closeFile];
     self.writeLogFileHandle = nil;
-    self.logManger = nil;
+    self.logManager = nil;
 }
 
 #pragma mark - Log日志目录接口
 
-- (NSString *)logDirectory{
-    return self.logManger.cacheDirectory;
+- (NSString *)logFilePathWithFileName:(NSString *)fileName{
+    return [self.logManager filePathWithName:fileName];
 }
 
-- (NSArray *)getLogList:(NSError **)error{
-    return [self.logManger getLogList:error];
+- (NSArray *)getLogFileNames:(NSError **)error{
+    return [self.logManager getLogFileNames:error];
+}
+
+- (void)calculateSizeWithCompletionBlock:(void(^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock{
+    [self.logManager calculateSizeWithCompletionBlock:completionBlock];
+}
+
+- (void)cleanDiskUsePolicy:(BOOL)usePolicy completionBlock:(void(^)())completionBlock{
+    __weak __typeof(&*self)weakSelf = self;
+    NSString *currentFilePath = [self.logManager currentLogFilePath];
+    [self.logManager cleanDiskUsePolicy:usePolicy completionBlock:^{
+        BOOL isDirectory;
+        BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:currentFilePath isDirectory:&isDirectory];
+        if (!fileExist || (fileExist && isDirectory)) {
+            [weakSelf resetLog];
+        }
+        if (completionBlock) {
+            completionBlock();
+        }
+    }];
 }
 
 #pragma mark - LogView 查看
@@ -132,8 +147,8 @@ void UncaughtExceptionHandler(NSException* exception);
     self.pikerLogEventHandler = handler;
     DDLogListTableViewController *logListViewController = [[DDLogListTableViewController alloc] initWithStyle:UITableViewStylePlain];
     logListViewController.delegate = self;
-    logListViewController.dataSoure = [self.logManger getLogList:nil];
-    logListViewController.logDirectory = self.logDirectory;
+    logListViewController.dataSource = self;
+    logListViewController.dataSoure = [self.logManager getLogFileNames:nil];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:logListViewController];
     [navigationController.navigationBar setTranslucent:NO];
     [viewController presentViewController:navigationController animated:YES completion:nil];
@@ -141,7 +156,23 @@ void UncaughtExceptionHandler(NSException* exception);
 
 #pragma mark - Private Methods
 
+- (void)resetLog{
+    [self.writeLogFileHandle closeFile];
+    self.writeLogFileHandle = nil;
+}
+
 - (void)logWithFile:(NSString *)file lineNumber:(int)lineNumber functionName:(NSString *)functionName body:(NSString *)body{
+    if (!self.writeLogFileHandle) {
+        NSString *logFilePath = [self.logManager currentLogFilePath];
+        self.writeLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
+        [self.writeLogFileHandle seekToEndOfFile];
+        if ([self shouldRedirect]) {
+            freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
+            freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+        }
+        NSSetUncaughtExceptionHandler (&UncaughtExceptionHandler);
+    }
+    
     NSString *fileName = [file lastPathComponent];
     NSString *logMessage;
     if (functionName) {
@@ -178,20 +209,6 @@ void UncaughtExceptionHandler(NSException* exception);
 }
 
 /**
- *  @brief  根据指定的format返回相应的时间字符串
- *
- *  @param format 日期格式
- *
- *  @return 根据format转换的时间字符串
- */
-- (NSString *)getDateTimeStringWithFormat:(NSString *)format{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
-    [formatter setDateFormat:format];
-    return [formatter stringFromDate:[NSDate date]];
-}
-
-/**
  *  @brief 格式化输出日志
  *
  *  @param message  日志内容
@@ -204,8 +221,8 @@ void UncaughtExceptionHandler(NSException* exception);
     if (pthread_threadid_np(0, &threadId)) {
         threadId = pthread_mach_thread_np(pthread_self());
     }
-    NSString *dateStr = [self getDateTimeStringWithFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
     
+    NSString *dateStr = [self.dateFormatter stringFromDate:[NSDate date]];
     NSString *logString = [NSString stringWithFormat:@"%@ %@[%d,%llu] %@\n", dateStr, info.processName, info.processIdentifier, threadId, message];
     return logString;
 }
@@ -226,20 +243,26 @@ void UncaughtExceptionHandler(NSException* exception);
         [strSymbols appendString: item];
         [strSymbols appendString: @"\r\n"];
     }
-    NSString *dateStr = [self getDateTimeStringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateStr = [self.dateFormatter stringFromDate:[NSDate date]];
     NSString *crashString = [NSString stringWithFormat:@"<- %@ ->[ Uncaught Exception ]\r\nName: %@, Reason: %@\r\n[ Fe Symbols Start ]\r\n%@[ Fe Symbols End ]\r\n\r\n", dateStr, name, reason, strSymbols];
     return crashString;
+}
+
+#pragma mark - DDLogListTableViewControllerDataSoure
+
+- (NSString *)logListTableViewController:(DDLogListTableViewController *)viewController logFilePathWithFileName:(NSString *)fileName{
+    return [self.logManager filePathWithName:fileName];
 }
 
 #pragma mark - DDLogListTableViewControllerDelegate
 
 - (void)logListTableViewController:(DDLogListTableViewController *)viewController didSelectedLog:(NSArray *)logList{
-    self.pikerLogEventHandler(self.logDirectory, logList);
+    self.pikerLogEventHandler(logList);
     self.pikerLogEventHandler = nil;
 }
 
 - (void)logListTableViewControllerDidCancel{
-    self.pikerLogEventHandler(self.logDirectory, nil);
+    self.pikerLogEventHandler(nil);
     self.pikerLogEventHandler = nil;
 }
 

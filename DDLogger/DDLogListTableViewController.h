@@ -8,7 +8,32 @@
 
 #import <UIKit/UIKit.h>
 
-@class DDLogListTableViewController;
+@protocol DDLogListTableViewControllerDataSoure;
+@protocol DDLogListTableViewControllerDelegate;
+
+
+@interface DDLogListTableViewController : UITableViewController
+
+/**
+ *  @brief 回调代理
+ */
+@property (nonatomic, weak) id <DDLogListTableViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <DDLogListTableViewControllerDataSoure> dataSource;
+
+/**
+ *  @brief 数据源
+ */
+@property (nonatomic, copy) NSArray *dataSoure;
+
+@end
+
+
+@protocol DDLogListTableViewControllerDataSoure <NSObject>
+
+@required
+- (NSString *)logListTableViewController:(DDLogListTableViewController *)viewController logFilePathWithFileName:(NSString *)fileName;
+
+@end
 
 @protocol DDLogListTableViewControllerDelegate <NSObject>
 @required
@@ -23,23 +48,5 @@
  *  @brief 取消操作
  */
 - (void)logListTableViewControllerDidCancel;
-@end
-
-@interface DDLogListTableViewController : UITableViewController
-
-/**
- *  @brief 回调代理
- */
-@property (nonatomic, weak) id <DDLogListTableViewControllerDelegate> delegate;
-
-/**
- *  @brief 数据源
- */
-@property (nonatomic, copy) NSArray *dataSoure;
-
-/**
- *  @brief 日志的缓存目录
- */
-@property (nonatomic, copy) NSString *logDirectory;
 
 @end

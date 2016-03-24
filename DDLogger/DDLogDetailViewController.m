@@ -29,7 +29,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.disPlayName;
+    NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:self.logFilePath error:nil];
+    unsigned long long fileSize = [attributesDictionary fileSize];
+    if (fileSize < 1024*1024) {
+        self.title = [self.disPlayName stringByAppendingFormat:@"[%.2f KB]",fileSize/1024.0];
+    } else {
+        self.title = [self.disPlayName stringByAppendingFormat:@"[%.2f MB]",fileSize/1024.0/1024.0];
+    }
     
     //leftBarButtonItem
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftButtonAction)];
@@ -59,9 +65,11 @@
     [super viewWillAppear:animated];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *context = [NSString stringWithContentsOfFile:self.logFilePath encoding:NSUTF8StringEncoding error:nil];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.myTextView.text = [self.myTextView.text stringByAppendingString:context];
-        });
+        if ([context length]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.myTextView.text = [self.myTextView.text stringByAppendingString:context];
+            });
+        }
     });
 }
 

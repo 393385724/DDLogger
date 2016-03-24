@@ -10,12 +10,14 @@
 #import "DDLogManager.h"
 
 static NSString * const DDLogDirectoryName = @"DDLog";
+static NSString * const DDLogPathExtension = @"log";
 static const NSInteger DDLogDefaultCacheMaxAge = 60 * 60 * 24 * 30; // 30 Day
 static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 
 @interface DDLogManager ()
 @property (nonatomic, strong) dispatch_queue_t logIOQueue;
-@property (nonatomic, copy) NSString *logFileName;
+@property (nonatomic, copy) NSString *currentUseLogFileName;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @end
 
 @implementation DDLogManager
@@ -29,7 +31,7 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
     if (self) {
         self.maxLogAge = DDLogDefaultCacheMaxAge;
         self.maxLogSize = DDLogDefaultCacheMaxSize;
-        self.logIOQueue = dispatch_queue_create("com.log.DDLogCache", DISPATCH_QUEUE_SERIAL);
+        self.logIOQueue = dispatch_queue_create("com.log.ddlogcache", DISPATCH_QUEUE_SERIAL);
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(cleanDisk)
@@ -47,15 +49,28 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 #pragma mark - Public Methods
 
 - (NSString *)currentLogFilePath{
-    NSString *filePath = [self.cacheDirectory stringByAppendingPathComponent:self.logFileName];
+    NSString *filePath = [self filePathWithName:self.currentUseLogFileName];
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil];
     }
     return filePath;
 }
 
-- (NSArray *)getLogList:(NSError **)error{
-    return [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cacheDirectory error:error];
+- (NSString *)filePathWithName:(NSString *)fileName{
+    return [self.cacheDirectory stringByAppendingPathComponent:fileName];
+}
+
+- (NSArray *)getLogFileNames:(NSError **)error{
+    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:self.cacheDirectory];
+    NSMutableArray *logListArray = [[NSMutableArray alloc] init];
+    for (NSString *fileName in fileEnumerator) {
+        NSString *filePath = [self filePathWithName:fileName];
+        NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+        if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
+            [logListArray addObject:fileName];
+        }
+    }
+    return logListArray;
 }
 
 - (void)calculateSizeWithCompletionBlock:(void(^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock{
@@ -68,10 +83,12 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
         NSUInteger totalSize = 0;
         NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:weakSelf.cacheDirectory];
         for (NSString *fileName in fileEnumerator) {
-            NSString *filePath = [weakSelf.cacheDirectory stringByAppendingPathComponent:fileName];
-            NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-            totalSize += [attrs fileSize];
-            fileCount ++;
+            NSString *filePath = [self filePathWithName:fileName];
+            NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+            if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
+                totalSize += [attributesDictionary fileSize];
+                fileCount ++;
+            }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock(fileCount, totalSize);
@@ -83,7 +100,14 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
     __weak __typeof(&*self)weakSelf = self;
     dispatch_async(self.logIOQueue, ^{
         if (!usePolicy) {
-            [[NSFileManager defaultManager] removeItemAtPath:weakSelf.cacheDirectory error:nil];
+            NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:weakSelf.cacheDirectory];
+            for (NSString *fileName in fileEnumerator) {
+                NSString *filePath = [self filePathWithName:fileName];
+                NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+                if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
+                    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+                }
+            }
             if (completionBlock) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock();
@@ -92,7 +116,7 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
             return;
         }
         NSURL *diskCacheURL = [NSURL fileURLWithPath:weakSelf.cacheDirectory isDirectory:YES];
-        NSArray *includingProperties = @[NSURLIsDirectoryKey, NSURLContentModificationDateKey, NSURLTotalFileAllocatedSizeKey];
+        NSArray *includingProperties = @[NSURLIsDirectoryKey, NSURLContentModificationDateKey, NSURLTotalFileAllocatedSizeKey,NSURLNameKey];
         NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceNow:-self.maxLogAge];
         
         
@@ -113,6 +137,11 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
             if ([resourceValues[NSURLIsDirectoryKey] boolValue]) {
                 continue;
             }
+            //跳过不是log日志文件的
+            if (![self isLogFileWithFileName:resourceValues[NSURLNameKey]]) {
+                continue;
+            }
+            
             // 日期过期则加入待删除数组
             NSDate *modificationDate = resourceValues[NSURLContentModificationDateKey];
             if ([[modificationDate laterDate:expirationDate] isEqualToDate:expirationDate]) {
@@ -124,6 +153,7 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
             currentCacheSize += [totalAllocatedSize unsignedIntegerValue];
             [cacheFiles setObject:resourceValues forKey:fileURL];
         }
+        
         // 删除策略外的日志
         for (NSURL *fileURL in urlsToDelete) {
             [fileManger removeItemAtURL:fileURL error:nil];
@@ -163,17 +193,28 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 #pragma mark - Private Methods
 
 /**
- *  @brief  根据指定的format返回相应的时间字符串
+ *  @brief 判断是不是log文件
  *
- *  @param format 日期格式
+ *  @param fileName 文件名字
  *
- *  @return 根据format转换的时间字符串
+ *  @return YES？是：不是
  */
-- (NSString *)getDateTimeStringWithFormat:(NSString *)format{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
-    [formatter setDateFormat:format];
-    return [formatter stringFromDate:[NSDate date]];
+- (BOOL)isLogFileWithFileName:(NSString *)fileName{
+    if ([[fileName pathExtension] isEqualToString:DDLogPathExtension]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+/**
+ *  @brief 根据当前时间计算出来的文件名
+ *
+ *  @return NSString 文件名 yyyy-MM-dd
+ */
+- (NSString *)currentDateFileName{
+    NSString *currentDateString = [self.dateFormatter stringFromDate:[NSDate date]];
+    return [currentDateString stringByAppendingPathExtension:DDLogPathExtension];
 }
 
 #pragma mark - Notification
@@ -212,12 +253,19 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
     return _cacheDirectory;
 }
 
-- (NSString *)logFileName{
-    if (!_logFileName) {
-        NSString *dateStr = [self getDateTimeStringWithFormat:@"yyyy-MM-dd"];
-        _logFileName = [NSString stringWithFormat:@"%@.log",dateStr];
+- (NSString *)currentUseLogFileName{
+    if (!_currentUseLogFileName) {
+        _currentUseLogFileName = [self currentDateFileName];
     }
-    return _logFileName;
+    return _currentUseLogFileName;
 }
 
+- (NSDateFormatter *)dateFormatter{
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    }
+    return _dateFormatter;
+}
 @end

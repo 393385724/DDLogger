@@ -23,10 +23,9 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
 /**
  *  @brief 选取log日志回调结果
  *
- *  @param logDirectory log缓存目录
  *  @param logList      选中的log日志数组
  */
-typedef void(^DDPikerLogEventHandler) (NSString *logDirectory, NSArray *logList);
+typedef void(^DDPikerLogEventHandler) (NSArray *logList);
 
 @interface DDLogger : NSObject
 
@@ -67,13 +66,13 @@ typedef void(^DDPikerLogEventHandler) (NSString *logDirectory, NSArray *logList)
  */
 - (void)stopLog;
 
-//*************log文件获取接口***************
+//*************log文件管理***************
 /**
- *  @brief  log存在的目录绝对目录
+ *  @brief  根据指定的log文件名返回log完整目录
  *
  *  @return NSString
  */
-- (NSString *)logDirectory;
+- (NSString *)logFilePathWithFileName:(NSString *)fileName;
 
 /**
  *  @brief 获取本地所有的log列表
@@ -82,8 +81,22 @@ typedef void(^DDPikerLogEventHandler) (NSString *logDirectory, NSArray *logList)
  *
  *  @return NSArray
  */
-- (NSArray *)getLogList:(NSError **)error;
+- (NSArray *)getLogFileNames:(NSError **)error;
 
+/**
+ *  @brief 计算所有log日志的大小
+ *
+ *  @param completionBlock 回调
+ */
+- (void)calculateSizeWithCompletionBlock:(void(^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock;
+
+/**
+ *  @brief 清除本地log
+ *
+ *  @param usePolicy       YES ？按照预设的策略清理 ： 全部移除
+ *  @param completionBlock 回调
+ */
+- (void)cleanDiskUsePolicy:(BOOL)usePolicy completionBlock:(void(^)())completionBlock;
 
 //*************log输出显示查看***************
 /**

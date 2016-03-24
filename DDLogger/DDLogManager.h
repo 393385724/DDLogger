@@ -29,20 +29,29 @@
 @property (nonatomic, assign) NSUInteger maxLogSize;
 
 /**
- *  @brief 今天的log日志文件路径
+ *  @brief 当前使用的log日志文件路径
  *
- *  @return NSString
+ *  @return NSString 文件路径
  */
 - (NSString *)currentLogFilePath;
 
 /**
- *  @brief 获取本地缓存中所有的log
+ *  @brief 根据文件名获取log日志的完整路径
+ *
+ *  @param fileName log文件名
+ *
+ *  @return NSString 文件路径
+ */
+- (NSString *)filePathWithName:(NSString *)fileName;
+
+/**
+ *  @brief 获取本地缓存中所有的log文件名
  *
  *  @param error 错误信息接收
  *
  *  @return NSArray
  */
-- (NSArray *)getLogList:(NSError **)error;
+- (NSArray *)getLogFileNames:(NSError **)error;
 
 /**
  *  @brief 计算所有log日志的大小
