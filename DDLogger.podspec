@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|  
   s.name             = "DDLogger"  
-  s.version          = "1.0.1"  
+  s.version          = "1.0.2"  
   s.summary          = "Simple, pretty and powerful logger for iOS with piker log 、log viewer"  
   s.homepage         = "https://github.com/393385724/DDLogger"  
   s.license          = 'MIT'  
