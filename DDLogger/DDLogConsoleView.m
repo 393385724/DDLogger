@@ -100,7 +100,9 @@
 
 - (void)setConsoleText:(NSString *)text{
     self.textView.text = [NSString stringWithFormat:@"%@\n%@", self.textView.text,text];
-    [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 0)];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0001 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 0)];
+    });
 }
 
 - (void)clearlogButtonAction{

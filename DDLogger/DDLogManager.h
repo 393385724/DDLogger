@@ -30,10 +30,15 @@
 
 /**
  *  @brief 当前使用的log日志文件路径
- *
- *  @return NSString 文件路径
  */
-- (NSString *)currentLogFilePath;
+@property (nonatomic, copy, readonly) NSString *currentUseLogFilePath;
+
+/**
+ *  @brief 判断当前使用的文件路径是否存在
+ *
+ *  @return YES ？存在 ：不存在
+ */
+- (BOOL)isCurrentFilePathExit;
 
 /**
  *  @brief 根据文件名获取log日志的完整路径
@@ -56,7 +61,7 @@
 /**
  *  @brief 计算所有log日志的大小
  *
- *  @param completionBlock 回调
+ *  @param completionBlock 回调 大小单位 bytes
  */
 - (void)calculateSizeWithCompletionBlock:(void(^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock;
 

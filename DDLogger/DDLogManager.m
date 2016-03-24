@@ -16,7 +16,7 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 
 @interface DDLogManager ()
 @property (nonatomic, strong) dispatch_queue_t logIOQueue;
-@property (nonatomic, copy) NSString *currentUseLogFileName;
+@property (nonatomic, copy, readwrite) NSString *currentUseLogFilePath;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @end
 
@@ -48,12 +48,14 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 
 #pragma mark - Public Methods
 
-- (NSString *)currentLogFilePath{
-    NSString *filePath = [self filePathWithName:self.currentUseLogFileName];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil];
+- (BOOL)isCurrentFilePathExit{
+    BOOL isDirectory;
+    BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:self.currentUseLogFilePath isDirectory:&isDirectory];
+    if (!fileExist || (fileExist && isDirectory)) {
+        return NO;
+    } else {
+        return YES;
     }
-    return filePath;
 }
 
 - (NSString *)filePathWithName:(NSString *)fileName{
@@ -253,11 +255,11 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
     return _cacheDirectory;
 }
 
-- (NSString *)currentUseLogFileName{
-    if (!_currentUseLogFileName) {
-        _currentUseLogFileName = [self currentDateFileName];
+- (NSString *)currentUseLogFilePath{
+    if (!_currentUseLogFilePath) {
+        _currentUseLogFilePath = [self filePathWithName:[self currentDateFileName]];
     }
-    return _currentUseLogFileName;
+    return _currentUseLogFilePath;
 }
 
 - (NSDateFormatter *)dateFormatter{

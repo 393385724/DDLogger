@@ -37,8 +37,11 @@
     }
 }
 - (IBAction)viewLocalLogAction:(id)sender {
-    [[DDLogger sharedInstance] pikerLogWithViewController:self eventHandler:^(NSString *logDirectory, NSArray *logList) {
-        NSLog(@"%@,%@",logDirectory,logList);
+    [[DDLogger sharedInstance] pikerLogWithViewController:self eventHandler:^(NSArray *logList) {
+        NSLog(@"%@",logList);
+        [logList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [[NSFileManager defaultManager] removeItemAtPath:obj error:nil];
+        }];
     }];
 }
 

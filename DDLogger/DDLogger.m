@@ -99,18 +99,7 @@ void UncaughtExceptionHandler(NSException* exception);
 }
 
 - (void)cleanDiskUsePolicy:(BOOL)usePolicy completionBlock:(void(^)())completionBlock{
-    __weak __typeof(&*self)weakSelf = self;
-    NSString *currentFilePath = [self.logManager currentLogFilePath];
-    [self.logManager cleanDiskUsePolicy:usePolicy completionBlock:^{
-        BOOL isDirectory;
-        BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:currentFilePath isDirectory:&isDirectory];
-        if (!fileExist || (fileExist && isDirectory)) {
-            [weakSelf resetLog];
-        }
-        if (completionBlock) {
-            completionBlock();
-        }
-    }];
+    [self.logManager cleanDiskUsePolicy:usePolicy completionBlock:completionBlock];
 }
 
 #pragma mark - LogView 查看
@@ -156,14 +145,14 @@ void UncaughtExceptionHandler(NSException* exception);
 
 #pragma mark - Private Methods
 
-- (void)resetLog{
-    [self.writeLogFileHandle closeFile];
-    self.writeLogFileHandle = nil;
-}
-
 - (void)logWithFile:(NSString *)file lineNumber:(int)lineNumber functionName:(NSString *)functionName body:(NSString *)body{
-    if (!self.writeLogFileHandle) {
-        NSString *logFilePath = [self.logManager currentLogFilePath];
+    if (![self.logManager isCurrentFilePathExit]) {
+        //当前文件不存在就需要重新创建了
+        [self.writeLogFileHandle closeFile];
+        self.writeLogFileHandle = nil;
+        
+        NSString *logFilePath = self.logManager.currentUseLogFilePath;
+        [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:nil attributes:nil];
         self.writeLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
         [self.writeLogFileHandle seekToEndOfFile];
         if ([self shouldRedirect]) {
