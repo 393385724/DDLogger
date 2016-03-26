@@ -7,7 +7,7 @@
 //
 
 #import "DDMainViewController.h"
-#import <DDLogger/DDLogger.h>
+#import "DDLogger.h"
 
 @interface DDMainViewController ()
 
@@ -28,24 +28,30 @@
 }
 
 - (IBAction)showLogViewAction:(UIButton *)sender {
-    if ([[DDLogger sharedInstance] isShowLogView]) {
+    if ([[DDLoggerClient sharedInstance] isConsoleShow]) {
         sender.titleLabel.text = @"log显示页面";
-        [[DDLogger sharedInstance] hidenLogView];
+        [[DDLoggerClient sharedInstance] hidenConsole];
     } else {
         sender.titleLabel.text = @"关闭log显示页面";
-        [[DDLogger sharedInstance] showLogView];
+        [[DDLoggerClient sharedInstance] showConsole];
     }
 }
 - (IBAction)viewLocalLogAction:(id)sender {
-    [[DDLogger sharedInstance] pikerLogWithViewController:self eventHandler:^(NSArray *logList) {
-        NSLog(@"%@",logList);
-        [logList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[DDLoggerClient sharedInstance] pikerLogWithViewController:self eventHandler:^(NSArray *logPathList) {
+        [logPathList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [[NSFileManager defaultManager] removeItemAtPath:obj error:nil];
         }];
     }];
 }
 
 - (IBAction)writeLogAction:(id)sender {
-    DDLog(@"%@",self.textView.text);
+//    DDLog(@"%@",self.textView.text);
+    NSDate *date = [NSDate date];
+    for (int i = 0; i < 2; i ++) {
+        DDLog(@"这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么这是一条测试数据你能看到么i = %d",i);
+    }
+    NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:date];
+    DDLog(@"end:%f",time);
+    DDLog(@"done");
 }
 @end

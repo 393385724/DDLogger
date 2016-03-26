@@ -1,29 +1,48 @@
 //
-//  DDLogManager.m
-//  DDLogger
+//  DDLoggerManager.m
+//  Pods
 //
-//  Created by lilingang on 15/9/18.
-//  Copyright © 2015年 LiLingang. All rights reserved.
+//  Created by lilingang on 16/3/26.
+//
 //
 
 #import <UIKit/UIKit.h>
-#import "DDLogManager.h"
+#import "DDLoggerManager.h"
 
-static NSString * const DDLogDirectoryName = @"DDLog";
+static NSString * const DDLogDirectoryName = @"DDLogger";
 static NSString * const DDLogPathExtension = @"log";
 static const NSInteger DDLogDefaultCacheMaxAge = 60 * 60 * 24 * 30; // 30 Day
 static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 
-@interface DDLogManager ()
+@interface DDLoggerManager ()
 @property (nonatomic, strong) dispatch_queue_t logIOQueue;
-@property (nonatomic, copy, readwrite) NSString *currentUseLogFilePath;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, copy, readwrite) NSString *cacheDirectory;
+@property (nonatomic, copy, readwrite) NSString *currentLogFilePath;
+/**
+ *  @brief log保存在本地的最长时间 单位/s 默认30Day
+ */
+@property (nonatomic, assign) NSInteger maxLogAge;
+
+/**
+ *  @brief log在本地保存最大的空间，单位/bytes 默认100M
+ */
+@property (nonatomic, assign) NSUInteger maxLogSize;
 @end
 
-@implementation DDLogManager
+@implementation DDLoggerManager
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
++ (DDLoggerManager *)sharedInstance{
+    static DDLoggerManager*_sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[DDLoggerManager alloc] init];
+    });
+    return _sharedInstance;
 }
 
 - (instancetype)init{
@@ -31,7 +50,7 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
     if (self) {
         self.maxLogAge = DDLogDefaultCacheMaxAge;
         self.maxLogSize = DDLogDefaultCacheMaxSize;
-        self.logIOQueue = dispatch_queue_create("com.log.ddlogcache", DISPATCH_QUEUE_SERIAL);
+        self.logIOQueue = dispatch_queue_create("com.ddlogger.cache", DISPATCH_QUEUE_SERIAL);
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(cleanDisk)
@@ -48,21 +67,15 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 
 #pragma mark - Public Methods
 
-- (BOOL)isCurrentFilePathExit{
-    BOOL isDirectory;
-    BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:self.currentUseLogFilePath isDirectory:&isDirectory];
-    if (!fileExist || (fileExist && isDirectory)) {
-        return NO;
-    } else {
-        return YES;
-    }
+- (void)configCacheDirectory:(NSString *)cacheDirectory{
+    _cacheDirectory = cacheDirectory;
 }
 
 - (NSString *)filePathWithName:(NSString *)fileName{
     return [self.cacheDirectory stringByAppendingPathComponent:fileName];
 }
 
-- (NSArray *)getLogFileNames:(NSError **)error{
+- (NSArray *)getLogFileNames{
     NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:self.cacheDirectory];
     NSMutableArray *logListArray = [[NSMutableArray alloc] init];
     for (NSString *fileName in fileEnumerator) {
@@ -255,11 +268,11 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
     return _cacheDirectory;
 }
 
-- (NSString *)currentUseLogFilePath{
-    if (!_currentUseLogFilePath) {
-        _currentUseLogFilePath = [self filePathWithName:[self currentDateFileName]];
+- (NSString *)currentLogFilePath{
+    if (!_currentLogFilePath) {
+        _currentLogFilePath = [self filePathWithName:[self currentDateFileName]];
     }
-    return _currentUseLogFilePath;
+    return _currentLogFilePath;
 }
 
 - (NSDateFormatter *)dateFormatter{

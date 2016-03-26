@@ -14,6 +14,20 @@
 		9090AF9F1C83E56900169AE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9090AF9D1C83E56900169AE2 /* LaunchScreen.storyboard */; };
 		9090AFA91C83E69A00169AE2 /* DDMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AFA71C83E69A00169AE2 /* DDMainViewController.m */; };
 		9090AFAA1C83E69A00169AE2 /* DDMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9090AFA81C83E69A00169AE2 /* DDMainViewController.xib */; };
+		909B40331CA6DFFD00A6597D /* ddlog_check_icon_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 909B401D1CA6DFFD00A6597D /* ddlog_check_icon_normal@2x.png */; };
+		909B40341CA6DFFD00A6597D /* ddlog_check_icon_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 909B401E1CA6DFFD00A6597D /* ddlog_check_icon_normal@3x.png */; };
+		909B40351CA6DFFD00A6597D /* ddlog_check_icon_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 909B401F1CA6DFFD00A6597D /* ddlog_check_icon_selected@2x.png */; };
+		909B40361CA6DFFD00A6597D /* ddlog_check_icon_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 909B40201CA6DFFD00A6597D /* ddlog_check_icon_selected@3x.png */; };
+		909B40371CA6DFFD00A6597D /* DDLogConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40221CA6DFFD00A6597D /* DDLogConsoleView.m */; };
+		909B40381CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40241CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m */; };
+		909B40391CA6DFFD00A6597D /* DDLogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40261CA6DFFD00A6597D /* DDLogDetailViewController.m */; };
+		909B403A1CA6DFFD00A6597D /* DDLogDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B40271CA6DFFD00A6597D /* DDLogDetailViewController.xib */; };
+		909B403B1CA6DFFD00A6597D /* DDLoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B402A1CA6DFFD00A6597D /* DDLoggerClient.m */; };
+		909B403C1CA6DFFD00A6597D /* DDLoggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B402C1CA6DFFD00A6597D /* DDLoggerManager.m */; };
+		909B403D1CA6DFFD00A6597D /* DDLogListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B402E1CA6DFFD00A6597D /* DDLogListTableViewCell.m */; };
+		909B403E1CA6DFFD00A6597D /* DDLogListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */; };
+		909B403F1CA6DFFD00A6597D /* DDLogListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */; };
+		909B40401CA6DFFD00A6597D /* DDLogListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */; };
 		DF68FF43564E3EA419E4F36C /* libPods-DDLoggerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B564806C5CA1E516DBAA5D /* libPods-DDLoggerDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +44,28 @@
 		9090AFA61C83E69A00169AE2 /* DDMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMainViewController.h; sourceTree = "<group>"; };
 		9090AFA71C83E69A00169AE2 /* DDMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMainViewController.m; sourceTree = "<group>"; };
 		9090AFA81C83E69A00169AE2 /* DDMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDMainViewController.xib; sourceTree = "<group>"; };
+		909B401D1CA6DFFD00A6597D /* ddlog_check_icon_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_normal@2x.png"; sourceTree = "<group>"; };
+		909B401E1CA6DFFD00A6597D /* ddlog_check_icon_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_normal@3x.png"; sourceTree = "<group>"; };
+		909B401F1CA6DFFD00A6597D /* ddlog_check_icon_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_selected@2x.png"; sourceTree = "<group>"; };
+		909B40201CA6DFFD00A6597D /* ddlog_check_icon_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_selected@3x.png"; sourceTree = "<group>"; };
+		909B40211CA6DFFD00A6597D /* DDLogConsoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogConsoleView.h; sourceTree = "<group>"; };
+		909B40221CA6DFFD00A6597D /* DDLogConsoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogConsoleView.m; sourceTree = "<group>"; };
+		909B40231CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogDetailKeyboardToolBar.h; sourceTree = "<group>"; };
+		909B40241CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogDetailKeyboardToolBar.m; sourceTree = "<group>"; };
+		909B40251CA6DFFD00A6597D /* DDLogDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogDetailViewController.h; sourceTree = "<group>"; };
+		909B40261CA6DFFD00A6597D /* DDLogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogDetailViewController.m; sourceTree = "<group>"; };
+		909B40271CA6DFFD00A6597D /* DDLogDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLogDetailViewController.xib; sourceTree = "<group>"; };
+		909B40281CA6DFFD00A6597D /* DDLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogger.h; sourceTree = "<group>"; };
+		909B40291CA6DFFD00A6597D /* DDLoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoggerClient.h; sourceTree = "<group>"; };
+		909B402A1CA6DFFD00A6597D /* DDLoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoggerClient.m; sourceTree = "<group>"; };
+		909B402B1CA6DFFD00A6597D /* DDLoggerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoggerManager.h; sourceTree = "<group>"; };
+		909B402C1CA6DFFD00A6597D /* DDLoggerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoggerManager.m; sourceTree = "<group>"; };
+		909B402D1CA6DFFD00A6597D /* DDLogListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogListTableViewCell.h; sourceTree = "<group>"; };
+		909B402E1CA6DFFD00A6597D /* DDLogListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogListTableViewCell.m; sourceTree = "<group>"; };
+		909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLogListTableViewCell.xib; sourceTree = "<group>"; };
+		909B40301CA6DFFD00A6597D /* DDLogListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogListTableViewController.h; sourceTree = "<group>"; };
+		909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogListTableViewController.m; sourceTree = "<group>"; };
+		909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLogListTableViewController.xib; sourceTree = "<group>"; };
 		AF99DD1023C1FCDEF3B99DA2 /* Pods-DDLoggerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		DD607CEB7B0F45EBEC6F51BD /* Pods-DDLoggerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,6 +102,7 @@
 		9090AF831C83E56900169AE2 = {
 			isa = PBXGroup;
 			children = (
+				909B401C1CA6DFFD00A6597D /* DDLogger */,
 				9090AF8E1C83E56900169AE2 /* DDLoggerDemo */,
 				9090AF8D1C83E56900169AE2 /* Products */,
 				2E11581431372BCC952407F6 /* Pods */,
@@ -104,6 +141,36 @@
 				9090AF901C83E56900169AE2 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		909B401C1CA6DFFD00A6597D /* DDLogger */ = {
+			isa = PBXGroup;
+			children = (
+				909B401D1CA6DFFD00A6597D /* ddlog_check_icon_normal@2x.png */,
+				909B401E1CA6DFFD00A6597D /* ddlog_check_icon_normal@3x.png */,
+				909B401F1CA6DFFD00A6597D /* ddlog_check_icon_selected@2x.png */,
+				909B40201CA6DFFD00A6597D /* ddlog_check_icon_selected@3x.png */,
+				909B40211CA6DFFD00A6597D /* DDLogConsoleView.h */,
+				909B40221CA6DFFD00A6597D /* DDLogConsoleView.m */,
+				909B40231CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.h */,
+				909B40241CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m */,
+				909B40251CA6DFFD00A6597D /* DDLogDetailViewController.h */,
+				909B40261CA6DFFD00A6597D /* DDLogDetailViewController.m */,
+				909B40271CA6DFFD00A6597D /* DDLogDetailViewController.xib */,
+				909B40281CA6DFFD00A6597D /* DDLogger.h */,
+				909B40291CA6DFFD00A6597D /* DDLoggerClient.h */,
+				909B402A1CA6DFFD00A6597D /* DDLoggerClient.m */,
+				909B402B1CA6DFFD00A6597D /* DDLoggerManager.h */,
+				909B402C1CA6DFFD00A6597D /* DDLoggerManager.m */,
+				909B402D1CA6DFFD00A6597D /* DDLogListTableViewCell.h */,
+				909B402E1CA6DFFD00A6597D /* DDLogListTableViewCell.m */,
+				909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */,
+				909B40301CA6DFFD00A6597D /* DDLogListTableViewController.h */,
+				909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */,
+				909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */,
+			);
+			name = DDLogger;
+			path = ../DDLogger;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,9 +234,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				9090AF9F1C83E56900169AE2 /* LaunchScreen.storyboard in Resources */,
+				909B40401CA6DFFD00A6597D /* DDLogListTableViewController.xib in Resources */,
 				9090AFAA1C83E69A00169AE2 /* DDMainViewController.xib in Resources */,
+				909B403A1CA6DFFD00A6597D /* DDLogDetailViewController.xib in Resources */,
+				909B40361CA6DFFD00A6597D /* ddlog_check_icon_selected@3x.png in Resources */,
+				909B403E1CA6DFFD00A6597D /* DDLogListTableViewCell.xib in Resources */,
 				9090AF9C1C83E56900169AE2 /* Assets.xcassets in Resources */,
+				909B40351CA6DFFD00A6597D /* ddlog_check_icon_selected@2x.png in Resources */,
 				9090AF9A1C83E56900169AE2 /* Main.storyboard in Resources */,
+				909B40331CA6DFFD00A6597D /* ddlog_check_icon_normal@2x.png in Resources */,
+				909B40341CA6DFFD00A6597D /* ddlog_check_icon_normal@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,9 +302,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				909B403B1CA6DFFD00A6597D /* DDLoggerClient.m in Sources */,
+				909B403D1CA6DFFD00A6597D /* DDLogListTableViewCell.m in Sources */,
+				909B40391CA6DFFD00A6597D /* DDLogDetailViewController.m in Sources */,
 				9090AF941C83E56900169AE2 /* AppDelegate.m in Sources */,
+				909B40371CA6DFFD00A6597D /* DDLogConsoleView.m in Sources */,
+				909B40381CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m in Sources */,
 				9090AF911C83E56900169AE2 /* main.m in Sources */,
 				9090AFA91C83E69A00169AE2 /* DDMainViewController.m in Sources */,
+				909B403F1CA6DFFD00A6597D /* DDLogListTableViewController.m in Sources */,
+				909B403C1CA6DFFD00A6597D /* DDLoggerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
