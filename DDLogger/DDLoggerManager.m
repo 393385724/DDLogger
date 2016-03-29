@@ -52,6 +52,13 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
         self.maxLogSize = DDLogDefaultCacheMaxSize;
         self.logIOQueue = dispatch_queue_create("com.ddlogger.cache", DISPATCH_QUEUE_SERIAL);
         
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        self.cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:DDLogDirectoryName];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:self.cacheDirectory]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:self.cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        self.currentLogFilePath = [self filePathWithName:[self currentDateFileName]];
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(cleanDisk)
                                                      name:UIApplicationWillTerminateNotification
@@ -68,7 +75,11 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 #pragma mark - Public Methods
 
 - (void)configCacheDirectory:(NSString *)cacheDirectory{
-    _cacheDirectory = cacheDirectory;
+    self.cacheDirectory = cacheDirectory;
+    self.currentLogFilePath = [self filePathWithName:[self currentDateFileName]];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:self.cacheDirectory]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:self.cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
 }
 
 - (NSString *)filePathWithName:(NSString *)fileName{
@@ -256,24 +267,6 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 }
 
 #pragma mark - Getter and Setter
-
-- (NSString *)cacheDirectory {
-    if (!_cacheDirectory) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        _cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:DDLogDirectoryName];
-    }
-    if (![[NSFileManager defaultManager] fileExistsAtPath:_cacheDirectory]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:_cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    return _cacheDirectory;
-}
-
-- (NSString *)currentLogFilePath{
-    if (!_currentLogFilePath) {
-        _currentLogFilePath = [self filePathWithName:[self currentDateFileName]];
-    }
-    return _currentLogFilePath;
-}
 
 - (NSDateFormatter *)dateFormatter{
     if (!_dateFormatter) {

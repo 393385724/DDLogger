@@ -51,6 +51,12 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
  */
 + (DDLoggerClient *)sharedInstance;
 
+/**
+ *  @brief 设置是否强制重定向日志到文件,默认只有release环境才会写入文件
+ *
+ *  @param forceRedirect YES？强制写文件
+ */
+- (void)setupForceRedirect:(BOOL)forceRedirect;
 
 /*******自定义手机控制台输出*********/
 /**

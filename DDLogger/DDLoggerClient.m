@@ -22,7 +22,9 @@
 
 @end
 
-@implementation DDLoggerClient
+@implementation DDLoggerClient{
+    BOOL _forceRedirect;
+}
 
 + (DDLoggerClient *)sharedInstance{
     static DDLoggerClient*_sharedInstance = nil;
@@ -41,6 +43,10 @@
         [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
     }
     return self;
+}
+
+- (void)setupForceRedirect:(BOOL)forceRedirect{
+    _forceRedirect = forceRedirect;
 }
 
 #pragma mark - Public Methods
@@ -105,12 +111,15 @@
  *  @return YES ? 重定向输出 : 不做任何操作
  */
 - (BOOL)shouldRedirect{
-    //若为模拟器则为真,否则为假
+    if (_forceRedirect) {
+        return YES;
+    } else {
 #if (TARGET_IPHONE_SIMULATOR || DEBUG)
-    return NO;
+        return NO;
 #else
-    return YES;
+        return YES;
 #endif
+    }
 }
 
 FILE *fp = NULL;
@@ -119,23 +128,20 @@ FILE *fp = NULL;
     if ([self shouldRedirect]) {
         int exist = access(filePath,W_OK);
         if ((fp = fopen(filePath, "a+")) == NULL) {
-            fprintf(stderr, "%s","file open failed");
+            fprintf(stdout, "%s","file open failed");
         }
         if (exist != 0 && fp != NULL) {
             freopen(filePath, "a+", stdout);
-            freopen(filePath, "a+", stderr);
         }
     }
     if ([self isConsoleShow]) {
         [self.consoleView appendLog:log];
     }
-    fprintf(stderr,"%s",[log UTF8String]);
+    fprintf(stdout,"%s",[log UTF8String]);
     if (fp != NULL) {
-        fflush(stderr);
         fflush(stdout);
         fclose(fp);
     }
-
 }
 /**
  *  @brief 格式化输出日志
