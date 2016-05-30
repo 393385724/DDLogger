@@ -126,13 +126,17 @@ FILE *fp = NULL;
 - (void)printfLog:(NSString *)log{
     const char *filePath = [[DDLoggerManager sharedInstance].currentLogFilePath cStringUsingEncoding:NSASCIIStringEncoding];
     if ([self shouldRedirect]) {
-        int exist = access(filePath,W_OK);
-        if ((fp = fopen(filePath, "a+")) == NULL) {
+        fp = freopen(filePath, "a+", stdout);
+        if (fp == NULL) {
             fprintf(stdout, "%s","file open failed");
         }
-        if (exist != 0 && fp != NULL) {
-            freopen(filePath, "a+", stdout);
-        }
+//        int exist = access(filePath,W_OK);
+//        if ((fp = fopen(filePath, "a+")) == NULL) {
+//            fprintf(stdout, "%s","file open failed");
+//        }
+//        if (exist == 0 && fp != NULL) {
+//            fp = freopen(filePath, "a+", stdout);
+//        }
     }
     if ([self isConsoleShow]) {
         [self.consoleView appendLog:log];
@@ -141,6 +145,7 @@ FILE *fp = NULL;
     if (fp != NULL) {
         fflush(stdout);
         fclose(fp);
+        fp = NULL;
     }
 }
 /**
