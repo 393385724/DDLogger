@@ -22,12 +22,12 @@
         self.translucent = YES;
         
         UIBarButtonItem *previousBarItem = [[UIBarButtonItem alloc] initWithTitle:@"上一项"
-                                                                            style:UIBarButtonItemStyleBordered
+                                                                            style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(previousField)];
         
         UIBarButtonItem *nextBarItem = [[UIBarButtonItem alloc] initWithTitle:@"下一项"
-                                                                        style:UIBarButtonItemStyleBordered
+                                                                        style:UIBarButtonItemStylePlain
                                                                        target:self
                                                                        action:@selector(nextField)];
         

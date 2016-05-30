@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DDMainViewController.h"
+#import "DDLogger.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[DDLoggerClient sharedInstance] setupForceRedirect:YES];
+    
     DDMainViewController *viewController = [[DDMainViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     self.window.rootViewController = navigationController;
