@@ -18,10 +18,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[DDLoggerClient sharedInstance] setupForceRedirect:YES];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docDir = [paths objectAtIndex:0];
-    [[DDLoggerManager sharedInstance] configCacheDirectory:docDir];
+    [[DDLoggerClient sharedInstance] startLogWithForceRedirect:YES cacheDirectory:docDir];
     
     DDMainViewController *viewController = [[DDMainViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -52,6 +51,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[DDLoggerClient sharedInstance] stopLog];
 }
 
 @end

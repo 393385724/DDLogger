@@ -22,9 +22,7 @@
 
 @end
 
-@implementation DDLoggerClient{
-    BOOL _forceRedirect;
-}
+@implementation DDLoggerClient
 
 + (DDLoggerClient *)sharedInstance{
     static DDLoggerClient*_sharedInstance = nil;
@@ -45,8 +43,27 @@
     return self;
 }
 
-- (void)setupForceRedirect:(BOOL)forceRedirect{
-    _forceRedirect = forceRedirect;
+FILE *fp = NULL;
+- (void)startLogWithForceRedirect:(BOOL)forceRedirect
+                   cacheDirectory:(NSString *)cacheDirectory{
+    if (cacheDirectory) {
+        [DDLoggerManager sharedInstance].cacheDirectory = cacheDirectory;
+    }
+    const char *filePath = [[DDLoggerManager sharedInstance].currentLogFilePath cStringUsingEncoding:NSASCIIStringEncoding];
+    if ([self shouldRedirect] || forceRedirect) {
+        fp = freopen(filePath, "a+", stdout);
+        if (fp == NULL) {
+            fprintf(stdout, "%s","file open failed");
+        }
+    }
+}
+
+- (void)stopLog{
+    if (fp != NULL) {
+        fflush(stdout);
+        fclose(fp);
+        fp = NULL;
+    }
 }
 
 #pragma mark - Public Methods
@@ -111,41 +128,20 @@
  *  @return YES ? 重定向输出 : 不做任何操作
  */
 - (BOOL)shouldRedirect{
-    if (_forceRedirect) {
-        return YES;
-    } else {
 #if (TARGET_IPHONE_SIMULATOR || DEBUG)
         return NO;
 #else
         return YES;
 #endif
-    }
 }
 
-FILE *fp = NULL;
 - (void)printfLog:(NSString *)log{
-    const char *filePath = [[DDLoggerManager sharedInstance].currentLogFilePath cStringUsingEncoding:NSASCIIStringEncoding];
-    if ([self shouldRedirect]) {
-        fp = freopen(filePath, "a+", stdout);
-        if (fp == NULL) {
-            fprintf(stdout, "%s","file open failed");
-        }
-//        int exist = access(filePath,W_OK);
-//        if ((fp = fopen(filePath, "a+")) == NULL) {
-//            fprintf(stdout, "%s","file open failed");
-//        }
-//        if (exist == 0 && fp != NULL) {
-//            fp = freopen(filePath, "a+", stdout);
-//        }
-    }
     if ([self isConsoleShow]) {
         [self.consoleView appendLog:log];
     }
     fprintf(stdout,"%s",[log UTF8String]);
     if (fp != NULL) {
         fflush(stdout);
-        fclose(fp);
-        fp = NULL;
     }
 }
 /**

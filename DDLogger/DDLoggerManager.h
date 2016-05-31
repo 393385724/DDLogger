@@ -16,7 +16,7 @@
 /**
  *  @brief 设置log缓存的绝对目录,默认Library/Caches/DDLogger
  */
-@property (nonatomic, copy, readonly) NSString *cacheDirectory;
+@property (nonatomic, copy) NSString *cacheDirectory;
 /**
  *  @brief 当前log日志文件路径
  */
@@ -29,13 +29,6 @@
  *  @return DDLoggerManager实例
  */
 + (DDLoggerManager *)sharedInstance;
-
-/**
- *  @brief 配置缓存目录，默认Library/Caches/DDLogger
- *
- *  @param cacheDirectory 路径
- */
-- (void)configCacheDirectory:(NSString *)cacheDirectory;
 
 /**
  *  @brief 根据文件名获取log日志的完整路径

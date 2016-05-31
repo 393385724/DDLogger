@@ -52,11 +52,19 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
 + (DDLoggerClient *)sharedInstance;
 
 /**
- *  @brief 设置是否强制重定向日志到文件,默认只有release环境才会写入文件
+ *  @brief 开始收集log
  *
- *  @param forceRedirect YES？强制写文件
+ *  @param forceRedirect 是否强制重定向 YES 所有DDExtendNSLog指向文件 NO 只有release环境才会写入文件
+ *  @param cacheDirectory 日志缓存目录 不传则使用默认目录Library/Caches/DDLogger
  */
-- (void)setupForceRedirect:(BOOL)forceRedirect;
+- (void)startLogWithForceRedirect:(BOOL)forceRedirect
+                   cacheDirectory:(NSString *)cacheDirectory;
+
+/**
+ *  @brief 停止log收集
+ */
+- (void)stopLog;
+
 
 /*******自定义手机控制台输出*********/
 /**

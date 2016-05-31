@@ -17,7 +17,6 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
 @interface DDLoggerManager ()
 @property (nonatomic, strong) dispatch_queue_t logIOQueue;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, copy, readwrite) NSString *cacheDirectory;
 @property (nonatomic, copy, readwrite) NSString *currentLogFilePath;
 /**
  *  @brief log保存在本地的最长时间 单位/s 默认30Day
