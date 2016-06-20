@@ -6,7 +6,7 @@ DDLoggerClient  log控制器
 DDLoggerManager 本地log资源管理
 使用方法：
 前提使用的cocopods
-pod 'DDLogger', '~> 1.1.3'
+pod 'DDLogger', '~> 1.1.4'
 
 ##开始收集log
 >- (void)startLogWithForceRedirect:(BOOL)forceRedirect cacheDirectory:(NSString *)cacheDirectory;

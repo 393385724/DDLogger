@@ -11,22 +11,13 @@
 
 static NSString * const DDLogDirectoryName = @"DDLogger";
 static NSString * const DDLogPathExtension = @"log";
-static const NSInteger DDLogDefaultCacheMaxAge = 60 * 60 * 24 * 30; // 30 Day
-static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 100; // 100M
+static const NSInteger DDLogDefaultCacheMaxAge = 60 * 60 * 24 * 7; // 7 Day
+static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 
 @interface DDLoggerManager ()
 @property (nonatomic, strong) dispatch_queue_t logIOQueue;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, copy, readwrite) NSString *currentLogFilePath;
-/**
- *  @brief log保存在本地的最长时间 单位/s 默认30Day
- */
-@property (nonatomic, assign) NSInteger maxLogAge;
-
-/**
- *  @brief log在本地保存最大的空间，单位/bytes 默认100M
- */
-@property (nonatomic, assign) NSUInteger maxLogSize;
 @end
 
 @implementation DDLoggerManager

@@ -14,9 +14,20 @@
 @interface DDLoggerManager : NSObject
 
 /**
+ *  @brief log保存在本地的最长时间 单位/s 默认7Day
+ */
+@property (nonatomic, assign) NSInteger maxLogAge;
+
+/**
+ *  @brief log在本地保存最大的空间，单位/bytes 默认50M
+ */
+@property (nonatomic, assign) NSUInteger maxLogSize;
+
+/**
  *  @brief 设置log缓存的绝对目录,默认Library/Caches/DDLogger
  */
 @property (nonatomic, copy) NSString *cacheDirectory;
+
 /**
  *  @brief 当前log日志文件路径
  */
