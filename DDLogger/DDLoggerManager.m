@@ -109,13 +109,87 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 - (void)cleanDiskUsePolicy:(BOOL)usePolicy completionBlock:(void(^)())completionBlock{
     __weak __typeof(&*self)weakSelf = self;
     dispatch_async(self.logIOQueue, ^{
-        if (!usePolicy) {
-            NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:weakSelf.cacheDirectory];
-            for (NSString *fileName in fileEnumerator) {
-                NSString *filePath = [self filePathWithName:fileName];
-                NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-                if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
-                    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+        @autoreleasepool {
+            if (!usePolicy) {
+                NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:weakSelf.cacheDirectory];
+                for (NSString *fileName in fileEnumerator) {
+                    NSString *filePath = [self filePathWithName:fileName];
+                    NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+                    if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
+                        [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+                    }
+                }
+                if (completionBlock) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock();
+                    });
+                }
+                return;
+            }
+            NSURL *diskCacheURL = [NSURL fileURLWithPath:weakSelf.cacheDirectory isDirectory:YES];
+            NSArray *includingProperties = @[NSURLIsDirectoryKey, NSURLContentModificationDateKey, NSURLTotalFileAllocatedSizeKey,NSURLNameKey];
+            NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceNow:-self.maxLogAge];
+            
+            
+            NSFileManager *fileManger = [NSFileManager defaultManager];
+            // This enumerator prefetches useful properties for our cache files.
+            NSDirectoryEnumerator *fileEnumerator = [fileManger enumeratorAtURL:diskCacheURL
+                                                     includingPropertiesForKeys:includingProperties
+                                                                        options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                   errorHandler:NULL];
+            
+            NSMutableDictionary *cacheFiles = [NSMutableDictionary dictionary];
+            NSUInteger currentCacheSize = 0;
+            
+            NSMutableArray *urlsToDelete = [[NSMutableArray alloc] init];
+            for (NSURL *fileURL in fileEnumerator) {
+                NSDictionary *resourceValues = [fileURL resourceValuesForKeys:includingProperties error:NULL];
+                // 跳过目录
+                if ([resourceValues[NSURLIsDirectoryKey] boolValue]) {
+                    continue;
+                }
+                //跳过不是log日志文件的
+                if (![self isLogFileWithFileName:resourceValues[NSURLNameKey]]) {
+                    continue;
+                }
+                
+                // 日期过期则加入待删除数组
+                NSDate *modificationDate = resourceValues[NSURLContentModificationDateKey];
+                if ([[modificationDate laterDate:expirationDate] isEqualToDate:expirationDate]) {
+                    [urlsToDelete addObject:fileURL];
+                    continue;
+                }
+                // 计算未过期的日志占用的存贮空间并缓存
+                NSNumber *totalAllocatedSize = resourceValues[NSURLTotalFileAllocatedSizeKey];
+                currentCacheSize += [totalAllocatedSize unsignedIntegerValue];
+                [cacheFiles setObject:resourceValues forKey:fileURL];
+            }
+            
+            // 删除策略外的日志
+            for (NSURL *fileURL in urlsToDelete) {
+                [fileManger removeItemAtURL:fileURL error:nil];
+            }
+            
+            // 根据缓存空间策略 清理log
+            if (currentCacheSize > self.maxLogSize) {
+                // 超出预期 则保留最大值的一半
+                const NSUInteger desiredCacheSize = self.maxLogSize / 2;
+                // 根据日期排序
+                NSArray *sortedFiles = [cacheFiles keysSortedByValueWithOptions:NSSortConcurrent
+                                                                usingComparator:^NSComparisonResult(id obj1, id obj2) {
+                                                                    return [obj1[NSURLContentModificationDateKey] compare:obj2[NSURLContentModificationDateKey]];
+                                                                }];
+                
+                // 删除较早的日志以保证所占空间在指定范围内
+                for (NSURL *fileURL in sortedFiles) {
+                    if ([fileManger removeItemAtURL:fileURL error:nil]) {
+                        NSDictionary *resourceValues = cacheFiles[fileURL];
+                        NSNumber *totalAllocatedSize = resourceValues[NSURLTotalFileAllocatedSizeKey];
+                        currentCacheSize -= [totalAllocatedSize unsignedIntegerValue];
+                        if (currentCacheSize < desiredCacheSize) {
+                            break;
+                        }
+                    }
                 }
             }
             if (completionBlock) {
@@ -123,79 +197,6 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
                     completionBlock();
                 });
             }
-            return;
-        }
-        NSURL *diskCacheURL = [NSURL fileURLWithPath:weakSelf.cacheDirectory isDirectory:YES];
-        NSArray *includingProperties = @[NSURLIsDirectoryKey, NSURLContentModificationDateKey, NSURLTotalFileAllocatedSizeKey,NSURLNameKey];
-        NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceNow:-self.maxLogAge];
-        
-        
-        NSFileManager *fileManger = [NSFileManager defaultManager];
-        // This enumerator prefetches useful properties for our cache files.
-        NSDirectoryEnumerator *fileEnumerator = [fileManger enumeratorAtURL:diskCacheURL
-                                                 includingPropertiesForKeys:includingProperties
-                                                                    options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                               errorHandler:NULL];
-        
-        NSMutableDictionary *cacheFiles = [NSMutableDictionary dictionary];
-        NSUInteger currentCacheSize = 0;
-        
-        NSMutableArray *urlsToDelete = [[NSMutableArray alloc] init];
-        for (NSURL *fileURL in fileEnumerator) {
-            NSDictionary *resourceValues = [fileURL resourceValuesForKeys:includingProperties error:NULL];
-            // 跳过目录
-            if ([resourceValues[NSURLIsDirectoryKey] boolValue]) {
-                continue;
-            }
-            //跳过不是log日志文件的
-            if (![self isLogFileWithFileName:resourceValues[NSURLNameKey]]) {
-                continue;
-            }
-            
-            // 日期过期则加入待删除数组
-            NSDate *modificationDate = resourceValues[NSURLContentModificationDateKey];
-            if ([[modificationDate laterDate:expirationDate] isEqualToDate:expirationDate]) {
-                [urlsToDelete addObject:fileURL];
-                continue;
-            }
-            // 计算未过期的日志占用的存贮空间并缓存
-            NSNumber *totalAllocatedSize = resourceValues[NSURLTotalFileAllocatedSizeKey];
-            currentCacheSize += [totalAllocatedSize unsignedIntegerValue];
-            [cacheFiles setObject:resourceValues forKey:fileURL];
-        }
-        
-        // 删除策略外的日志
-        for (NSURL *fileURL in urlsToDelete) {
-            [fileManger removeItemAtURL:fileURL error:nil];
-        }
-        
-        // 根据缓存空间策略 清理log
-        if (currentCacheSize > self.maxLogSize) {
-            // 超出预期 则保留最大值的一半
-            const NSUInteger desiredCacheSize = self.maxLogSize / 2;
-            
-            // 根据日期排序
-            NSArray *sortedFiles = [cacheFiles keysSortedByValueWithOptions:NSSortConcurrent
-                                                            usingComparator:^NSComparisonResult(id obj1, id obj2) {
-                                                                return [obj1[NSURLContentModificationDateKey] compare:obj2[NSURLContentModificationDateKey]];
-                                                            }];
-            
-            // 删除较早的日志以保证所占空间在指定范围内
-            for (NSURL *fileURL in sortedFiles) {
-                if ([fileManger removeItemAtURL:fileURL error:nil]) {
-                    NSDictionary *resourceValues = cacheFiles[fileURL];
-                    NSNumber *totalAllocatedSize = resourceValues[NSURLTotalFileAllocatedSizeKey];
-                    currentCacheSize -= [totalAllocatedSize unsignedIntegerValue];
-                    if (currentCacheSize < desiredCacheSize) {
-                        break;
-                    }
-                }
-            }
-        }
-        if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock();
-            });
         }
     });
 }

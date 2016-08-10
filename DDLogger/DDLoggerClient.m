@@ -13,7 +13,8 @@
 #import "DDLogConsoleView.h"
 #import "DDLogListTableViewController.h"
 
-NSInteger const DDMaxMessageInMemoryCount = 10;
+NSInteger const DDMaxMessageInMemoryCount = 30;
+NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 
 @interface DDLoggerClient ()<DDLogListTableViewControllerDelegate, DDLogListTableViewControllerDataSoure>
 
@@ -26,6 +27,9 @@ NSInteger const DDMaxMessageInMemoryCount = 10;
 //用与缓存处理
 @property (nonatomic, strong) dispatch_queue_t serialQueue;
 @property (nonatomic, strong) NSMutableArray *memoryCaches;
+@property (nonatomic, assign) CGFloat memoryCacheSize;
+@property (nonatomic, assign) NSInteger memoryMaxLine;
+@property (nonatomic, assign) CGFloat memoryMaxSize;
 
 @end
 
@@ -52,6 +56,9 @@ NSInteger const DDMaxMessageInMemoryCount = 10;
         [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
         self.serialQueue = dispatch_queue_create("com.ddlogger.writeQueue", DISPATCH_QUEUE_SERIAL);
         self.memoryCaches = [[NSMutableArray alloc] initWithCapacity:DDMaxMessageInMemoryCount];
+        self.memoryMaxSize = DDMaxMessageInMemorySize;
+        self.memoryMaxLine = DDMaxMessageInMemoryCount;
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminateNotification:) name:UIApplicationWillTerminateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exceptionHandlerNotification:) name:DDExceptionHandlerNotification object:nil];
@@ -63,6 +70,11 @@ NSInteger const DDMaxMessageInMemoryCount = 10;
                           fileName:(NSString *)fileName{
     [[DDLoggerManager sharedInstance] configCacheDirectory:cacheDirectory fileName:fileName];
     [DDUncaughtExceptionHandler InstallUncaughtExceptionHandler];
+}
+
+- (void)configMemoryMaxLine:(NSInteger)maxLine maxSize:(CGFloat)maxSize{
+    self.memoryMaxLine = maxLine;
+    self.memoryMaxSize = maxSize;
 }
 
 - (void)stopLog{
@@ -140,6 +152,7 @@ NSInteger const DDMaxMessageInMemoryCount = 10;
         NSLog(@"no more log in memory");
         return;
     }
+    self.memoryMaxSize = 0.0;
     NSArray *readyToDiskMessageArray = [self.memoryCaches copy];
     @synchronized (self.memoryCaches) {
         [self.memoryCaches removeAllObjects];
@@ -168,7 +181,9 @@ NSInteger const DDMaxMessageInMemoryCount = 10;
     if (log) {
         [self.memoryCaches addObject:log];
     }
-    if ([self.memoryCaches count] >= DDMaxMessageInMemoryCount) {
+    self.memoryCacheSize += [log length]/1024.0;
+    if ([self.memoryCaches count] >= self.memoryMaxLine ||
+        self.memoryCacheSize >= self.memoryMaxSize) {
         [self flushToDiskSync:NO];
     }
 }

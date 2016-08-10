@@ -61,6 +61,15 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
                           fileName:(NSString *)fileName;
 
 /**
+ *  @brief 配置内存允许存储的最大log
+ *
+ *  @param maxLine 最大条数.DDExtendNSLog执行一次算一条
+ *  @param maxSize 占用的最大内存，估算存储空间
+ */
+- (void)configMemoryMaxLine:(NSInteger)maxLine
+                    maxSize:(float)maxSize;
+
+/**
  *  @brief 停止log收集
  */
 - (void)stopLog;
