@@ -14,7 +14,7 @@
 @interface DDLoggerManager : NSObject
 
 /**
- *  @brief log保存在本地的最长时间 单位/s 默认7Day
+ *  @brief log保存在本地的最长时间 单位/s 默认7天
  */
 @property (nonatomic, assign) NSInteger maxLogAge;
 
@@ -26,7 +26,7 @@
 /**
  *  @brief 设置log缓存的绝对目录,默认Library/Caches/DDLogger
  */
-@property (nonatomic, copy) NSString *cacheDirectory;
+@property (nonatomic, copy, readonly) NSString *cacheDirectory;
 
 /**
  *  @brief 当前log日志文件路径
@@ -40,6 +40,15 @@
  *  @return DDLoggerManager实例
  */
 + (DDLoggerManager *)sharedInstance;
+
+/**
+ *  @brief 配置log存储路径和名称
+ *
+ *  @param cacheDirectory 缓存目录，nil则使用Library/Caches/DDLogger
+ *  @param filename       缓存文件名，nil则使用日期作为文件名.log做后缀
+ */
+- (void)configCacheDirectory:(NSString *)cacheDirectory
+                    fileName:(NSString *)filename;
 
 /**
  *  @brief 根据文件名获取log日志的完整路径

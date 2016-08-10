@@ -52,13 +52,13 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
 + (DDLoggerClient *)sharedInstance;
 
 /**
- *  @brief 开始收集log
+ *  @brief 指定log文件存储的路径
  *
- *  @param forceRedirect 是否强制重定向 YES 所有DDExtendNSLog指向文件 NO 只有release环境才会写入文件
- *  @param cacheDirectory 日志缓存目录 不传则使用默认目录Library/Caches/DDLogger
+ *  @param cacheDirectory log存储的目录，nil则使用默认目录Library/Caches/DDLogger
+ *  @param fileName       log文件名，nil则根据日期动态生成文件名 eg.2016-08-08
  */
-- (void)startLogWithForceRedirect:(BOOL)forceRedirect
-                   cacheDirectory:(NSString *)cacheDirectory;
+- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
+                          fileName:(NSString *)fileName;
 
 /**
  *  @brief 停止log收集

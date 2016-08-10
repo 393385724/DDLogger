@@ -8,9 +8,12 @@
 
 #import "DDLoggerClient.h"
 #import <pthread.h>
+#import "DDUncaughtExceptionHandler.h"
 #import "DDLoggerManager.h"
 #import "DDLogConsoleView.h"
 #import "DDLogListTableViewController.h"
+
+NSInteger const DDMaxMessageInMemoryCount = 10;
 
 @interface DDLoggerClient ()<DDLogListTableViewControllerDelegate, DDLogListTableViewControllerDataSoure>
 
@@ -19,6 +22,10 @@
 @property (nonatomic, strong) DDLogConsoleView *consoleView;
 
 @property (nonatomic, copy) DDLoggerPikerEventHandler eventHandler;
+
+//用与缓存处理
+@property (nonatomic, strong) dispatch_queue_t serialQueue;
+@property (nonatomic, strong) NSMutableArray *memoryCaches;
 
 @end
 
@@ -33,42 +40,43 @@
     return _sharedInstance;
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (instancetype)init{
     self = [super init];
     if (self) {
         self.dateFormatter = [[NSDateFormatter alloc] init];
         [self.dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
         [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+        self.serialQueue = dispatch_queue_create("com.ddlogger.writeQueue", DISPATCH_QUEUE_SERIAL);
+        self.memoryCaches = [[NSMutableArray alloc] initWithCapacity:DDMaxMessageInMemoryCount];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminateNotification:) name:UIApplicationWillTerminateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exceptionHandlerNotification:) name:DDExceptionHandlerNotification object:nil];
     }
     return self;
 }
 
-FILE *fp = NULL;
-- (void)startLogWithForceRedirect:(BOOL)forceRedirect
-                   cacheDirectory:(NSString *)cacheDirectory{
-    if (cacheDirectory) {
-        [DDLoggerManager sharedInstance].cacheDirectory = cacheDirectory;
-    }
-    const char *filePath = [[DDLoggerManager sharedInstance].currentLogFilePath cStringUsingEncoding:NSASCIIStringEncoding];
-    if ([self shouldRedirect] || forceRedirect) {
-        fp = freopen(filePath, "a+", stdout);
-        if (fp == NULL) {
-            fprintf(stdout, "%s","file open failed");
-        }
-    }
+- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
+                          fileName:(NSString *)fileName{
+    [[DDLoggerManager sharedInstance] configCacheDirectory:cacheDirectory fileName:fileName];
+    [DDUncaughtExceptionHandler InstallUncaughtExceptionHandler];
 }
 
 - (void)stopLog{
-    if (fp != NULL) {
-        fflush(stdout);
-        fclose(fp);
-        fp = NULL;
-    }
+    [self flushToDiskSync:NO];
+    self.memoryCaches = nil;
+    self.serialQueue = nil;
+    self.eventHandler = nil;
+    self.dateFormatter = nil;
+    self.consoleView = nil;
 }
 
 #pragma mark - Public Methods
 - (BOOL)isConsoleShow{
-    return self.consoleView != nil;
+    return self.consoleView.isShow;
 }
 
 - (void)showConsole{
@@ -119,38 +127,52 @@ FILE *fp = NULL;
     self.eventHandler = nil;
 }
 
-
 #pragma mark - Private Methods
 
 /**
- *  @brief  是否需要重定向输出到文件(release模式)
+ *  @brief 将内存中的log存入磁盘
  *
- *  @return YES ? 重定向输出 : 不做任何操作
+ *  @param isSync YES ? 同步 : 异步
  */
-- (BOOL)shouldRedirect{
-#if (TARGET_IPHONE_SIMULATOR || DEBUG)
-        return NO;
-#else
-        return YES;
-#endif
+- (void)flushToDiskSync:(BOOL)isSync{
+    if ([self.memoryCaches count] == 0 ||
+        !self.memoryCaches) {
+        NSLog(@"no more log in memory");
+        return;
+    }
+    NSArray *readyToDiskMessageArray = [self.memoryCaches copy];
+    @synchronized (self.memoryCaches) {
+        [self.memoryCaches removeAllObjects];
+    }
+    dispatch_block_t block = ^{
+        const char *filePath = [[DDLoggerManager sharedInstance].currentLogFilePath cStringUsingEncoding:NSASCIIStringEncoding];
+        FILE *fp = fopen(filePath, "a");
+        if (fp) {
+            fprintf(fp, "%s", [[readyToDiskMessageArray componentsJoinedByString:@""] UTF8String]);
+            fflush(fp);
+            fclose(fp);
+            fp = NULL;
+        }
+    };
+    if (isSync) {
+        dispatch_barrier_sync(self.serialQueue, block);
+    } else {
+        dispatch_barrier_async(self.serialQueue, block);
+    }
 }
 
 - (void)printfLog:(NSString *)log{
     if ([self isConsoleShow]) {
         [self.consoleView appendLog:log];
     }
-    fprintf(stdout,"%s",[log UTF8String]);
-    if (fp != NULL) {
-        fflush(stdout);
+    if (log) {
+        [self.memoryCaches addObject:log];
+    }
+    if ([self.memoryCaches count] >= DDMaxMessageInMemoryCount) {
+        [self flushToDiskSync:NO];
     }
 }
-/**
- *  @brief 格式化输出日志
- *
- *  @param message  日志内容
- *
- *  @return 格式化后的日志内容
- */
+
 - (NSString *)formatLogMessage:(NSString *)message{
     NSProcessInfo* info = [NSProcessInfo processInfo];
     __uint64_t threadId;
@@ -161,6 +183,22 @@ FILE *fp = NULL;
     NSString *dateStr = [self.dateFormatter stringFromDate:[NSDate date]];
     NSString *logString = [NSString stringWithFormat:@"%@ %@[%d,%llu] %@\n", dateStr, info.processName, info.processIdentifier, threadId, message];
     return logString;
+}
+
+#pragma mark - Notification
+
+- (void)applicationWillTerminateNotification:(NSNotification *)notification{
+    [self flushToDiskSync:YES];
+}
+
+- (void)applicationDidEnterBackgroundNotification:(NSNotification *)notification{
+    [self flushToDiskSync:NO];
+}
+
+- (void)exceptionHandlerNotification:(NSNotification *)notification{
+    NSString *crashString = notification.object;
+   [[DDLoggerClient sharedInstance] printfLog:crashString];
+   [[DDLoggerClient sharedInstance] flushToDiskSync:YES];
 }
 
 @end
@@ -182,16 +220,16 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName,DD
         case DDLogLevelNone:
             break;
         case DDLogLevelError:
-            logMessage = [@"ERROR: " stringByAppendingString:logMessage];
+            logMessage = [@"[ERROR] " stringByAppendingString:logMessage];
             break;
         case DDLogLevelWarning:
-            logMessage = [@"WARNING: " stringByAppendingString:logMessage];
+            logMessage = [@"[WARNING] " stringByAppendingString:logMessage];
             break;
         case DDLogLevelInfo:
-            logMessage = [@"INFO: " stringByAppendingString:logMessage];
+            logMessage = [@"[INFO] " stringByAppendingString:logMessage];
             break;
         case DDLogLevelDebug: {
-            logMessage = [@"DEBUG: " stringByAppendingString:logMessage];
+            logMessage = [@"[DEBUG] " stringByAppendingString:logMessage];
             break;
         default:
             break;
@@ -199,21 +237,4 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName,DD
     }
     NSString *formatLogString = [[DDLoggerClient sharedInstance] formatLogMessage:logMessage];
     [[DDLoggerClient sharedInstance] printfLog:formatLogString];
-}
-
-void UncaughtExceptionHandler(NSException* exception){
-    NSString *name = [exception name];
-    NSString *reason = [exception reason];
-    NSArray *symbols = [exception callStackSymbols];
-    NSMutableString *strSymbols = [[ NSMutableString alloc ] init ];
-    for (NSString *item in symbols){
-        [strSymbols appendString: item];
-        [strSymbols appendString: @"\r\n"];
-    }
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *dateStr = [dateFormatter stringFromDate:[NSDate date]];
-    NSString *crashString = [NSString stringWithFormat:@"<- %@ ->[ Uncaught Exception ]\r\nName: %@, Reason: %@\r\n[ Fe Symbols Start ]\r\n%@[ Fe Symbols End ]\r\n\r\n", dateStr, name, reason, strSymbols];
-    [[DDLoggerClient sharedInstance] printfLog:crashString];
 }

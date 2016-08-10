@@ -10,6 +10,7 @@
 
 @interface DDLogConsoleView ()
 
+@property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UIButton *closeResponseButton;
 @property (nonatomic, strong) UIButton *clearButton;
 @property (nonatomic, strong) UITextView *textView;
@@ -34,7 +35,15 @@
         self.textView.textColor = [UIColor greenColor];
         self.textView.editable = NO;
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame) - 60, 20)];
+        UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.frame), 20, 20)];
+        [closeButton setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+        [closeButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        closeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [closeButton setTitle:@"X" forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(closeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        self.closeButton = closeButton;
+        
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, CGRectGetWidth(frame) - 60, 20)];
         [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
         [button setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -48,7 +57,7 @@
         [button setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
         [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:12];
-        [button setTitle:@"Clear Log" forState:UIControlStateNormal];
+        [button setTitle:@"Clear" forState:UIControlStateNormal];
         [button addTarget:self action:@selector(clearlogButtonAction) forControlEvents:UIControlEventTouchUpInside];
         button.hidden = YES;
         self.clearButton = button;
@@ -66,9 +75,12 @@
 
 - (void)show{
     [[self mainWindow] addSubview:self];
+    [[self mainWindow] addSubview:self.closeButton];
     [UIView animateWithDuration:0.25 animations:^{
         self.frame = CGRectMake(CGRectGetMinX(self.frame), 300, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+        self.closeButton.frame = CGRectMake(0, CGRectGetMinY(self.frame), 20, 20);
     } completion:^(BOOL finished) {
+        self.isShow = YES;
         [[self mainWindow] addGestureRecognizer:self.logViewUserInteractionEnabledTap];
     }];
 }
@@ -76,7 +88,10 @@
 - (void)dismiss:(void(^)())complete{
     [UIView animateWithDuration:0.25 animations:^{
         self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetHeight([UIScreen mainScreen].bounds), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+        self.closeButton.frame = CGRectMake(0, CGRectGetMinY(self.frame), 20, 20);
     } completion:^(BOOL finished) {
+        self.isShow = NO;
+        [self.closeButton removeFromSuperview];
         [self removeFromSuperview];
         [[self mainWindow] removeGestureRecognizer:self.logViewUserInteractionEnabledTap];
         if (complete) {
@@ -103,6 +118,10 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0001 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 0)];
     });
+}
+
+- (void)closeButtonAction{
+    [self dismiss:nil];
 }
 
 - (void)clearlogButtonAction{

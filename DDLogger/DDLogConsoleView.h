@@ -10,6 +10,8 @@
 
 @interface DDLogConsoleView : UIView
 
+@property (nonatomic, assign) BOOL isShow;
+
 /**
  *  @brief 展示consoleView
  */

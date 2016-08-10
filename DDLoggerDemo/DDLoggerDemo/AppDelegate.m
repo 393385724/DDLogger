@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docDir = [paths objectAtIndex:0];
-    [[DDLoggerClient sharedInstance] startLogWithForceRedirect:YES cacheDirectory:docDir];
+    [[DDLoggerClient sharedInstance] startLogWithCacheDirectory:docDir fileName:@"log.txt"];
     
     DDMainViewController *viewController = [[DDMainViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];

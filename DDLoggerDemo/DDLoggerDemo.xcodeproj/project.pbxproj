@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C7669FD65AA4144B59484A4 /* libPods-DDLoggerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09558A9E56BE8B1150FED63B /* libPods-DDLoggerDemo.a */; };
 		9090AF911C83E56900169AE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AF901C83E56900169AE2 /* main.m */; };
 		9090AF941C83E56900169AE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AF931C83E56900169AE2 /* AppDelegate.m */; };
 		9090AF9A1C83E56900169AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9090AF981C83E56900169AE2 /* Main.storyboard */; };
@@ -28,11 +29,12 @@
 		909B403E1CA6DFFD00A6597D /* DDLogListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */; };
 		909B403F1CA6DFFD00A6597D /* DDLogListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */; };
 		909B40401CA6DFFD00A6597D /* DDLogListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */; };
-		DF68FF43564E3EA419E4F36C /* libPods-DDLoggerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B564806C5CA1E516DBAA5D /* libPods-DDLoggerDemo.a */; };
+		90A29C4A1D5B170600F63C71 /* DDUncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A29C491D5B170600F63C71 /* DDUncaughtExceptionHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		51B564806C5CA1E516DBAA5D /* libPods-DDLoggerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDLoggerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09558A9E56BE8B1150FED63B /* libPods-DDLoggerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDLoggerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ADA6965744C4C5B0F43282C /* Pods-DDLoggerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		9090AF8C1C83E56900169AE2 /* DDLoggerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDLoggerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9090AF901C83E56900169AE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9090AF921C83E56900169AE2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,8 +68,9 @@
 		909B40301CA6DFFD00A6597D /* DDLogListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogListTableViewController.h; sourceTree = "<group>"; };
 		909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogListTableViewController.m; sourceTree = "<group>"; };
 		909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLogListTableViewController.xib; sourceTree = "<group>"; };
-		AF99DD1023C1FCDEF3B99DA2 /* Pods-DDLoggerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		DD607CEB7B0F45EBEC6F51BD /* Pods-DDLoggerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.release.xcconfig"; sourceTree = "<group>"; };
+		90A29C481D5B170600F63C71 /* DDUncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUncaughtExceptionHandler.h; sourceTree = "<group>"; };
+		90A29C491D5B170600F63C71 /* DDUncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUncaughtExceptionHandler.m; sourceTree = "<group>"; };
+		ABFD2DE07C4967753AEE5629 /* Pods-DDLoggerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,38 +78,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF68FF43564E3EA419E4F36C /* libPods-DDLoggerDemo.a in Frameworks */,
+				2C7669FD65AA4144B59484A4 /* libPods-DDLoggerDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E11581431372BCC952407F6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AF99DD1023C1FCDEF3B99DA2 /* Pods-DDLoggerDemo.debug.xcconfig */,
-				DD607CEB7B0F45EBEC6F51BD /* Pods-DDLoggerDemo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		62D747A4E4F0A24A2BBB304D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				51B564806C5CA1E516DBAA5D /* libPods-DDLoggerDemo.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		9090AF831C83E56900169AE2 = {
 			isa = PBXGroup;
 			children = (
 				909B401C1CA6DFFD00A6597D /* DDLogger */,
 				9090AF8E1C83E56900169AE2 /* DDLoggerDemo */,
 				9090AF8D1C83E56900169AE2 /* Products */,
-				2E11581431372BCC952407F6 /* Pods */,
-				62D747A4E4F0A24A2BBB304D /* Frameworks */,
+				D8F235A7BFACAB3BA4D6FB67 /* Pods */,
+				A2733E6B9A1E49937BF1C07B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,6 +148,8 @@
 				909B402A1CA6DFFD00A6597D /* DDLoggerClient.m */,
 				909B402B1CA6DFFD00A6597D /* DDLoggerManager.h */,
 				909B402C1CA6DFFD00A6597D /* DDLoggerManager.m */,
+				90A29C481D5B170600F63C71 /* DDUncaughtExceptionHandler.h */,
+				90A29C491D5B170600F63C71 /* DDUncaughtExceptionHandler.m */,
 				909B402D1CA6DFFD00A6597D /* DDLogListTableViewCell.h */,
 				909B402E1CA6DFFD00A6597D /* DDLogListTableViewCell.m */,
 				909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */,
@@ -173,6 +161,23 @@
 			path = ../DDLogger;
 			sourceTree = "<group>";
 		};
+		A2733E6B9A1E49937BF1C07B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				09558A9E56BE8B1150FED63B /* libPods-DDLoggerDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D8F235A7BFACAB3BA4D6FB67 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8ADA6965744C4C5B0F43282C /* Pods-DDLoggerDemo.debug.xcconfig */,
+				ABFD2DE07C4967753AEE5629 /* Pods-DDLoggerDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -180,12 +185,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9090AFA31C83E56900169AE2 /* Build configuration list for PBXNativeTarget "DDLoggerDemo" */;
 			buildPhases = (
-				08DC2ABD9C19817B0FC6A980 /* Check Pods Manifest.lock */,
+				736386990BD823F10C2175A2 /* [CP] Check Pods Manifest.lock */,
 				9090AF881C83E56900169AE2 /* Sources */,
 				9090AF891C83E56900169AE2 /* Frameworks */,
 				9090AF8A1C83E56900169AE2 /* Resources */,
-				C65B4BE5B2C8C3C8AEB8CAF6 /* Embed Pods Frameworks */,
-				20624FDA6DC81F73606408CD /* Copy Pods Resources */,
+				4D0E6A8154752FE1BAC820A6 /* [CP] Embed Pods Frameworks */,
+				0B0716386D39BC238DA1BC02 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,29 +255,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08DC2ABD9C19817B0FC6A980 /* Check Pods Manifest.lock */ = {
+		0B0716386D39BC238DA1BC02 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		20624FDA6DC81F73606408CD /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,19 +270,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C65B4BE5B2C8C3C8AEB8CAF6 /* Embed Pods Frameworks */ = {
+		4D0E6A8154752FE1BAC820A6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		736386990BD823F10C2175A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -308,6 +313,7 @@
 				9090AF941C83E56900169AE2 /* AppDelegate.m in Sources */,
 				909B40371CA6DFFD00A6597D /* DDLogConsoleView.m in Sources */,
 				909B40381CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m in Sources */,
+				90A29C4A1D5B170600F63C71 /* DDUncaughtExceptionHandler.m in Sources */,
 				9090AF911C83E56900169AE2 /* main.m in Sources */,
 				9090AFA91C83E69A00169AE2 /* DDMainViewController.m in Sources */,
 				909B403F1CA6DFFD00A6597D /* DDLogListTableViewController.m in Sources */,
@@ -419,7 +425,7 @@
 		};
 		9090AFA41C83E56900169AE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF99DD1023C1FCDEF3B99DA2 /* Pods-DDLoggerDemo.debug.xcconfig */;
+			baseConfigurationReference = 8ADA6965744C4C5B0F43282C /* Pods-DDLoggerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DDLoggerDemo/Info.plist;
@@ -431,7 +437,7 @@
 		};
 		9090AFA51C83E56900169AE2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD607CEB7B0F45EBEC6F51BD /* Pods-DDLoggerDemo.release.xcconfig */;
+			baseConfigurationReference = ABFD2DE07C4967753AEE5629 /* Pods-DDLoggerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DDLoggerDemo/Info.plist;

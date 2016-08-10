@@ -17,6 +17,8 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 @interface DDLoggerManager ()
 @property (nonatomic, strong) dispatch_queue_t logIOQueue;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, copy, readwrite) NSString *cacheDirectory;
+@property (nonatomic, copy, readwrite) NSString *currentLogName;
 @property (nonatomic, copy, readwrite) NSString *currentLogFilePath;
 @end
 
@@ -40,7 +42,7 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
     if (self) {
         self.maxLogAge = DDLogDefaultCacheMaxAge;
         self.maxLogSize = DDLogDefaultCacheMaxSize;
-        self.logIOQueue = dispatch_queue_create("com.ddlogger.cache", DISPATCH_QUEUE_SERIAL);
+        self.logIOQueue = dispatch_queue_create("com.ddlogger.clean", DISPATCH_QUEUE_SERIAL);
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(cleanDisk)
                                                      name:UIApplicationWillTerminateNotification
@@ -56,9 +58,9 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 
 #pragma mark - Public Methods
 
-- (void)configCacheDirectory:(NSString *)cacheDirectory{
+- (void)configCacheDirectory:(NSString *)cacheDirectory fileName:(NSString *)filename{
     self.cacheDirectory = cacheDirectory;
-    self.currentLogFilePath = [self filePathWithName:[self currentDateFileName]];
+    self.currentLogName = filename;
     if (![[NSFileManager defaultManager] fileExistsAtPath:self.cacheDirectory]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:self.cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
     }
@@ -200,29 +202,14 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 
 #pragma mark - Private Methods
 
-/**
- *  @brief 判断是不是log文件
- *
- *  @param fileName 文件名字
- *
- *  @return YES？是：不是
- */
 - (BOOL)isLogFileWithFileName:(NSString *)fileName{
-    if ([[fileName pathExtension] isEqualToString:DDLogPathExtension]) {
+    NSString *currentLogPathExtension = self.currentLogName.pathExtension;
+    NSString *pathExtension = currentLogPathExtension ? currentLogPathExtension : DDLogPathExtension;
+    if ([[fileName pathExtension] isEqualToString:pathExtension]) {
         return YES;
     } else {
         return NO;
     }
-}
-
-/**
- *  @brief 根据当前时间计算出来的文件名
- *
- *  @return NSString 文件名 yyyy-MM-dd
- */
-- (NSString *)currentDateFileName{
-    NSString *currentDateString = [self.dateFormatter stringFromDate:[NSDate date]];
-    return [currentDateString stringByAppendingPathExtension:DDLogPathExtension];
 }
 
 #pragma mark - Notification
@@ -270,9 +257,17 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
     return _cacheDirectory;
 }
 
+- (NSString *)currentLogName{
+    if (!_currentLogName) {
+        NSString *currentDateString = [self.dateFormatter stringFromDate:[NSDate date]];
+        return [currentDateString stringByAppendingPathExtension:DDLogPathExtension];
+    }
+    return _currentLogName;
+}
+
 - (NSString *)currentLogFilePath{
     if (!_currentLogFilePath) {
-        _currentLogFilePath = [self filePathWithName:[self currentDateFileName]];
+        _currentLogFilePath = [self filePathWithName:self.currentLogName];
     }
     return _currentLogFilePath;
 }
