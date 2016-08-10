@@ -29,7 +29,7 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 @property (nonatomic, strong) NSMutableArray *memoryCaches;
 @property (nonatomic, assign) CGFloat memoryCacheSize;
 @property (nonatomic, assign) NSInteger memoryMaxLine;
-@property (nonatomic, assign) CGFloat memoryMaxSize;
+@property (nonatomic, assign) float memoryMaxSize;
 
 @end
 
@@ -72,7 +72,7 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
     [DDUncaughtExceptionHandler InstallUncaughtExceptionHandler];
 }
 
-- (void)configMemoryMaxLine:(NSInteger)maxLine maxSize:(CGFloat)maxSize{
+- (void)configMemoryMaxLine:(NSInteger)maxLine maxSize:(float)maxSize{
     self.memoryMaxLine = maxLine;
     self.memoryMaxSize = maxSize;
 }
