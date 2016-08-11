@@ -234,21 +234,17 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName,DD
     switch (logLevel) {
         case DDLogLevelNone:
             break;
-        case DDLogLevelError:
-            logMessage = [@"[ERROR] " stringByAppendingString:logMessage];
-            break;
-        case DDLogLevelWarning:
-            logMessage = [@"[WARNING] " stringByAppendingString:logMessage];
-            break;
         case DDLogLevelInfo:
             logMessage = [@"[INFO] " stringByAppendingString:logMessage];
             break;
-        case DDLogLevelDebug: {
-            logMessage = [@"[DEBUG] " stringByAppendingString:logMessage];
+        case DDLogLevelWarn:
+            logMessage = [@"[WARN] " stringByAppendingString:logMessage];
+            break;
+        case DDLogLevelError:
+            logMessage = [@"[ERROR] " stringByAppendingString:logMessage];
             break;
         default:
             break;
-        }
     }
     NSString *formatLogString = [[DDLoggerClient sharedInstance] formatLogMessage:logMessage];
     [[DDLoggerClient sharedInstance] printfLog:formatLogString];

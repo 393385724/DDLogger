@@ -45,10 +45,11 @@
 }
 
 - (IBAction)writeLogAction:(id)sender {
-    for (int i = 0; i < 2; i ++) {
-        DDLog(@"这是一条测试数据你能看到么这是一条测试数据你能看到么i = %d",i);
-        NSLog(@"这是一条测试数据你能看到么这是一条测试数据你能看到么i = %d",i);
-    }
+    NSLog(@"NSLog 这是一条测试数据你能看到么这是一条测试数据你能看到么");
+    DDLog(@"DDLog 这是一条测试数据你能看到么这是一条测试数据你能看到么");
+    DDLogInfo(@"DDLogInfo 这是一条测试数据你能看到么这是一条测试数据你能看到么");
+    DDLogWarn(@"DDLogWarn 这是一条测试数据你能看到么这是一条测试数据你能看到么");
+    DDLogError(@"DDLogError 这是一条测试数据你能看到么这是一条测试数据你能看到么");
 }
 
 //- (void)badAccess

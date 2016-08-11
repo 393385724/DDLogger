@@ -14,14 +14,12 @@
 typedef NS_ENUM(NSUInteger, DDLogLevel) {
     /**不区分类型*/
     DDLogLevelNone       = 0,
-    /**Error类型的Log*/
-    DDLogLevelError      = 1,
-    /**警告类型的log*/
-    DDLogLevelWarning    = 2,
     /**正常信息的log*/
-    DDLogLevelInfo       = 3,
-    /**调试使用的log*/
-    DDLogLevelDebug      = 4
+    DDLogLevelInfo       = 1,
+    /**警告类型的log*/
+    DDLogLevelWarn       = 2,
+    /**Error类型的Log*/
+    DDLogLevelError      = 3,
 };
 
 /**
