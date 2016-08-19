@@ -20,6 +20,7 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 @property (nonatomic, copy, readwrite) NSString *cacheDirectory;
 @property (nonatomic, copy, readwrite) NSString *currentLogName;
 @property (nonatomic, copy, readwrite) NSString *currentLogFilePath;
+@property (nonatomic, assign) BOOL isBackgroundClean;
 @end
 
 @implementation DDLoggerManager
@@ -40,6 +41,10 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 - (instancetype)init{
     self = [super init];
     if (self) {
+        self.isBackgroundClean = NO;
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        [self.dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
+        [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
         self.maxLogAge = DDLogDefaultCacheMaxAge;
         self.maxLogSize = DDLogDefaultCacheMaxSize;
         self.logIOQueue = dispatch_queue_create("com.ddlogger.clean", DISPATCH_QUEUE_SERIAL);
@@ -220,6 +225,10 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
 }
 
 - (void)backgroundCleanDisk {
+    if (self.isBackgroundClean) {
+        return;
+    }
+    self.isBackgroundClean = YES;
     Class UIApplicationClass = NSClassFromString(@"UIApplication");
     if(!UIApplicationClass || ![UIApplicationClass respondsToSelector:@selector(sharedApplication)]) {
         return;
@@ -230,23 +239,16 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
         bgTask = UIBackgroundTaskInvalid;
     }];
     
+    __weak __typeof(&*self)weakSelf = self;
     [self cleanDiskUsePolicy:YES completionBlock:^{
         [application endBackgroundTask:bgTask];
         bgTask = UIBackgroundTaskInvalid;
+        __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+        strongSelf.isBackgroundClean = NO;
     }];
 }
 
 #pragma mark - Getter and Setter
-
-- (NSDateFormatter *)dateFormatter{
-    if (!_dateFormatter) {
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
-        [_dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    }
-    return _dateFormatter;
-}
-
 - (NSString *)cacheDirectory{
     if (!_cacheDirectory) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
