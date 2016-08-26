@@ -1,12 +1,12 @@
 # DDLogger
-a log redirect to file ，建议使用1.2.0版本
+a log redirect to file ，建议使用1.2.1版本
 
 将NSLog替换为DDLog或者重新定义NSLog参见DDLog的定义可以在release模式下重向log到预先定义的日志目录
 DDLoggerClient  log控制器
 DDLoggerManager 本地log资源管理
 使用方法：
 前提使用的cocopods
-pod 'DDLogger', '~> 1.2.0'
+pod 'DDLogger', '~> 1.2.1'
 
 ##开始收集log
 >- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory fileName:(NSString *)fileName;
