@@ -51,11 +51,6 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.dateFormatter = [[NSDateFormatter alloc] init];
-        [self.dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
-        [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
-        self.serialQueue = dispatch_queue_create("com.ddlogger.writeQueue", DISPATCH_QUEUE_SERIAL);
-        self.memoryCaches = [[NSMutableArray alloc] initWithCapacity:DDMaxMessageInMemoryCount];
         self.memoryMaxSize = DDMaxMessageInMemorySize;
         self.memoryMaxLine = DDMaxMessageInMemoryCount;
         
@@ -68,6 +63,12 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 
 - (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
                           fileName:(NSString *)fileName{
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
+    [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+    self.serialQueue = dispatch_queue_create("com.ddlogger.writeQueue", DISPATCH_QUEUE_SERIAL);
+    self.memoryCaches = [[NSMutableArray alloc] initWithCapacity:DDMaxMessageInMemoryCount];
+    
     [[DDLoggerManager sharedInstance] configCacheDirectory:cacheDirectory fileName:fileName];
     [DDUncaughtExceptionHandler InstallUncaughtExceptionHandler];
 }
@@ -153,7 +154,8 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
         return;
     }
     self.memoryMaxSize = 0.0;
-    NSArray *readyToDiskMessageArray = [self.memoryCaches copy];
+    //2016-10-9 try to fix flushToDiskSync crash
+    NSArray *readyToDiskMessageArray = [NSArray arrayWithArray:self.memoryCaches];
     @synchronized (self.memoryCaches) {
         [self.memoryCaches removeAllObjects];
     }
@@ -175,11 +177,20 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 }
 
 - (void)printfLog:(NSString *)log{
+    if (!self.memoryCaches ||
+        !self.dateFormatter ||
+        !self.serialQueue) {
+        NSLog(@"必须调用startLogWithCacheDirectory方法");
+        return;
+    }
     if ([self isConsoleShow]) {
         [self.consoleView appendLog:log];
     }
     if (log) {
-        [self.memoryCaches addObject:log];
+        //2016-10-9 try to fix flushToDiskSync crash
+        @synchronized (self.memoryCaches) {
+            [self.memoryCaches addObject:log];
+        }
     }
     self.memoryCacheSize += [log length]/1024.0;
     if ([self.memoryCaches count] >= self.memoryMaxLine ||
@@ -189,6 +200,10 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 }
 
 - (NSString *)formatLogMessage:(NSString *)message{
+    if (!self.dateFormatter) {
+        NSLog(@"必须调用startLogWithCacheDirectory方法");
+        return nil;
+    }
     NSProcessInfo* info = [NSProcessInfo processInfo];
     __uint64_t threadId;
     if (pthread_threadid_np(0, &threadId)) {
