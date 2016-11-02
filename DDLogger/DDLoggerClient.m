@@ -148,31 +148,32 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
  *  @param isSync YES ? 同步 : 异步
  */
 - (void)flushToDiskSync:(BOOL)isSync{
-    if ([self.memoryCaches count] == 0 ||
-        !self.memoryCaches) {
-        NSLog(@"no more log in memory");
-        return;
-    }
-    self.memoryMaxSize = 0.0;
-    //2016-10-9 try to fix flushToDiskSync crash
-    NSArray *readyToDiskMessageArray = [NSArray arrayWithArray:self.memoryCaches];
+    //2016-11-02 try to fix flushToDiskSync crash -[__NSArrayM getObjects:range:]: range {0, 1} extends beyond bounds for empty array
     @synchronized (self.memoryCaches) {
-        [self.memoryCaches removeAllObjects];
-    }
-    dispatch_block_t block = ^{
-        const char *filePath = [[DDLoggerManager sharedInstance].currentLogFilePath cStringUsingEncoding:NSASCIIStringEncoding];
-        FILE *fp = fopen(filePath, "a");
-        if (fp) {
-            fprintf(fp, "%s", [[readyToDiskMessageArray componentsJoinedByString:@""] UTF8String]);
-            fflush(fp);
-            fclose(fp);
-            fp = NULL;
+        if ([self.memoryCaches count] == 0 ||
+            !self.memoryCaches) {
+            NSLog(@"no more log in memory");
+            return;
         }
-    };
-    if (isSync) {
-        dispatch_barrier_sync(self.serialQueue, block);
-    } else {
-        dispatch_barrier_async(self.serialQueue, block);
+        self.memoryMaxSize = 0.0;
+        NSArray *readyToDiskMessageArray = [NSArray arrayWithArray:self.memoryCaches];
+        [self.memoryCaches removeAllObjects];
+        
+        dispatch_block_t block = ^{
+            const char *filePath = [[DDLoggerManager sharedInstance].currentLogFilePath cStringUsingEncoding:NSASCIIStringEncoding];
+            FILE *fp = fopen(filePath, "a");
+            if (fp) {
+                fprintf(fp, "%s", [[readyToDiskMessageArray componentsJoinedByString:@""] UTF8String]);
+                fflush(fp);
+                fclose(fp);
+                fp = NULL;
+            }
+        };
+        if (isSync) {
+            dispatch_barrier_sync(self.serialQueue, block);
+        } else {
+            dispatch_barrier_async(self.serialQueue, block);
+        }
     }
 }
 
@@ -187,7 +188,7 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
         [self.consoleView appendLog:log];
     }
     if (log) {
-        //2016-10-9 try to fix flushToDiskSync crash
+        //2016-10-9 try to fix flushToDiskSync crash -[__NSArrayM getObjects:range:]: range {0, 1} extends beyond bounds for empty array
         @synchronized (self.memoryCaches) {
             [self.memoryCaches addObject:log];
         }

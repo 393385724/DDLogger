@@ -47,3 +47,7 @@ pod 'DDLogger', '~> 1.2.1'
 >  @param handler        选取回调结果
 >
 >- (void)pikerLogWithViewController:(UIViewController *)viewController eventHandler:(DDPikerLogEventHandler)handler;
+
+
+#Iteration
+#2016-11-02 fix flushToDiskSync crash -[__NSArrayM getObjects:range:]: range {0, 1} extends beyond bounds for empty array
