@@ -63,6 +63,12 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 
 - (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
                           fileName:(NSString *)fileName{
+    [self startLogWithCacheDirectory:cacheDirectory fileName:fileName shouldCatchException:YES];
+}
+
+- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
+                          fileName:(NSString *)fileName
+              shouldCatchException:(BOOL)shouldCatchException{
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
@@ -70,7 +76,9 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
     self.memoryCaches = [[NSMutableArray alloc] initWithCapacity:DDMaxMessageInMemoryCount];
     
     [[DDLoggerManager sharedInstance] configCacheDirectory:cacheDirectory fileName:fileName];
-    [DDUncaughtExceptionHandler InstallUncaughtExceptionHandler];
+    if (shouldCatchException) {
+        [DDUncaughtExceptionHandler InstallUncaughtExceptionHandler];
+    }
 }
 
 - (void)configMemoryMaxLine:(NSInteger)maxLine maxSize:(float)maxSize{

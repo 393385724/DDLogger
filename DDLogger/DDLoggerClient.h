@@ -59,6 +59,17 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, D
                           fileName:(NSString *)fileName;
 
 /**
+ *  @brief 指定log文件存储的路径
+ *
+ *  @param cacheDirectory           log存储的目录，nil则使用默认目录Library/Caches/DDLogger
+ *  @param fileName                 log文件名，nil则根据日期动态生成文件名 eg.2016-08-08
+ *  @param shouldCatchException     是否允许捕捉异常，YES ？ 允许 : 不允许
+ */
+- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
+                          fileName:(NSString *)fileName
+              shouldCatchException:(BOOL)shouldCatchException;
+
+/**
  *  @brief 配置内存允许存储的最大log
  *
  *  @param maxLine 最大条数.DDExtendNSLog执行一次算一条
