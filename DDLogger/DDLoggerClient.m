@@ -271,5 +271,12 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName,DD
             break;
     }
     NSString *formatLogString = [[DDLoggerClient sharedInstance] formatLogMessage:logMessage];
+#ifdef DEBUG
+#ifdef __IPHONE_9_0
+    printf("%s\n",[formatLogString UTF8String]);
+#else
+    NSLog(@"%@",formatLogString);
+#endif
+#endif
     [[DDLoggerClient sharedInstance] printfLog:formatLogString];
 }
