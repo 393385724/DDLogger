@@ -12,12 +12,19 @@
 
 NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier";
 
+#ifdef __IPHONE_8_0
 @interface DDLogListTableViewController ()<DDLogListTableViewCellDelegate,DDLogDetailViewControllerDelegate>
+#else
+@interface DDLogListTableViewController ()<DDLogListTableViewCellDelegate,DDLogDetailViewControllerDelegate,UIAlertViewDelegate>
+#endif
 
 @end
 
 @implementation DDLogListTableViewController{
     NSMutableSet *_selectedLogSet;
+    NSString *_deleteFileName;
+    NSString *_deleteFilePath;
+    NSIndexPath *_deleteIndexPath;
 }
 
 - (void)viewDidLoad {
@@ -66,6 +73,28 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
     [cell updateWithTitle:disPlayName isSelected:isSelected];
 }
 
+#pragma mark -  Private Methods
+
+- (void)deleteFile {
+    [[NSFileManager defaultManager] removeItemAtPath:_deleteFilePath error:nil];
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[_deleteIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    NSMutableArray *mutDataSource = [self.dataSoure mutableCopy];
+    [mutDataSource removeObjectAtIndex:_deleteIndexPath.row];
+    self.dataSoure = [mutDataSource copy];
+    [self.tableView endUpdates];
+    [_selectedLogSet removeObject:_deleteFileName];
+    self.title = [NSString stringWithFormat:@"日志列表(%lu)",(unsigned long)[self.dataSoure count]];
+    self.navigationItem.rightBarButtonItem.enabled = [_selectedLogSet count] > 0 ? YES : NO;
+    [self cancleDelele];
+}
+
+- (void)cancleDelele {
+    _deleteFileName = nil;
+    _deleteFilePath = nil;
+    _deleteIndexPath = nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -83,6 +112,32 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        _deleteFileName = self.dataSoure[indexPath.row];
+        _deleteFilePath = [self.dataSource logListTableViewController:self logFilePathWithFileName:_deleteFileName];
+        _deleteIndexPath = indexPath;
+        NSString *title = @"⚠️";
+        NSString *message = [NSString stringWithFormat:@"确定删除文件(%@)?",_deleteFileName];
+#ifdef __IPHONE_8_0
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self deleteFile];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self cancleDelele];
+        }];
+        [alertController addAction:cancelAction];
+        [alertController addAction:deleteAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+#else
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView show];
+#endif
+    }
+}
+
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -96,6 +151,22 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
     viewController.logFilePath = [self.dataSource logListTableViewController:self logFilePathWithFileName:fileName];
     [self.navigationController pushViewController:viewController animated:YES];
 }
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+#pragma mark - UIAlertViewDelegate
+
+#ifndef __IPHONE_8_0
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self cancleDelele];
+    } else {
+        [self deleteFile];
+    }
+}
+#endif
 
 #pragma mark - DDLogListTableViewCellDelegate
 
