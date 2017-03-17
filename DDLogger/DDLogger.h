@@ -31,9 +31,9 @@
 
 #endif
 
-#define DDLog(...)                DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelNone,[NSString stringWithFormat:__VA_ARGS__]);
-#define DDLogInfo(...)            DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelInfo,[NSString stringWithFormat:__VA_ARGS__]);
-#define DDLogWarn(...)         DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelWarn,[NSString stringWithFormat:__VA_ARGS__]);
-#define DDLogError(...)           DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelError,[NSString stringWithFormat:__VA_ARGS__]);
+#define DDLog(...)                DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelNone,__VA_ARGS__);
+#define DDLogInfo(...)            DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelInfo,__VA_ARGS__);
+#define DDLogWarn(...)            DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelWarn,__VA_ARGS__);
+#define DDLogError(...)           DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelError,__VA_ARGS__);
 
 #endif /* DDLogger_h */
