@@ -247,13 +247,22 @@ void DDExtendNSLog(const char *file, int lineNumber, const char *functionName,DD
     va_start (ap, format);
     NSString *body = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end (ap);
-    NSString *fileString = [NSString stringWithUTF8String:file];
-    NSString *fileName = [fileString lastPathComponent];
-    NSString *logMessage;
+    
+    NSString *logMessage = @"<";
+    if (file != NULL) {
+        NSString *fileString = [NSString stringWithUTF8String:file];
+        NSString *fileName = [fileString lastPathComponent];
+        logMessage = [logMessage stringByAppendingFormat:@"%@ ",fileName];
+    }
+    if (lineNumber >= 0) {
+        logMessage = [logMessage stringByAppendingFormat:@": %d Line",lineNumber];
+    }
     if (functionName != NULL) {
-        logMessage = [NSString stringWithFormat:@"<%@ : %d Line %s> %@",fileName,lineNumber,functionName,body];
-    } else {
-        logMessage = [NSString stringWithFormat:@"<%@ : %d Line> %@",fileName,lineNumber,body];
+        logMessage = [logMessage stringByAppendingFormat:@" %s",functionName];
+    }
+    logMessage = [logMessage stringByAppendingString:@">"];
+    if (body) {
+        logMessage = [logMessage stringByAppendingFormat:@" %@",body];
     }
     switch (logLevel) {
         case DDLogLevelNone:

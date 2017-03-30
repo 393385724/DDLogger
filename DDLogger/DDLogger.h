@@ -25,15 +25,20 @@
 
 #define NSLog(...)                NSLog(__VA_ARGS__);
 
-#else
-
-#define NSLog(...)                {};
-
-#endif
-
 #define DDLog(...)                DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelNone,__VA_ARGS__);
 #define DDLogInfo(...)            DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelInfo,__VA_ARGS__);
 #define DDLogWarn(...)            DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelWarn,__VA_ARGS__);
 #define DDLogError(...)           DDExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,DDLogLevelError,__VA_ARGS__);
+
+#else
+
+#define NSLog(...)                {};
+
+#define DDLog(...)                DDExtendNSLog(NULL,-1,__PRETTY_FUNCTION__,DDLogLevelNone,__VA_ARGS__);
+#define DDLogInfo(...)            DDExtendNSLog(NULL,-1,__PRETTY_FUNCTION__,DDLogLevelInfo,__VA_ARGS__);
+#define DDLogWarn(...)            DDExtendNSLog(NULL,-1,__PRETTY_FUNCTION__,DDLogLevelWarn,__VA_ARGS__);
+#define DDLogError(...)           DDExtendNSLog(NULL,-1,__PRETTY_FUNCTION__,DDLogLevelError,__VA_ARGS__);
+
+#endif
 
 #endif /* DDLogger_h */
