@@ -38,7 +38,7 @@ typedef void(^DDLoggerPikerEventHandler) (NSArray *logPathList);
  *  @param logLevel     DDLogLevel
  *  @param format       自定义参数
  */
-void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, DDLogLevel logLevel, NSString *format, ...);
+void DDExtendNSLog(const char *file, int lineNumber, const char *functionName, DDLogLevel logLevel, NSString *format, ...) NS_FORMAT_FUNCTION(5,6);
 
 @interface DDLoggerClient : NSObject
 
