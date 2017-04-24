@@ -81,4 +81,9 @@
  */
 - (void)cleanDiskUsePolicy:(BOOL)usePolicy completionBlock:(void(^)())completionBlock;
 
+/**
+ 重置文件名，逻辑上会重新根据日期计算新的文件名
+ */
+- (void)resetFileName;
+
 @end

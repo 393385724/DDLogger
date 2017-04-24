@@ -231,6 +231,7 @@ NSInteger const DDMaxMessageInMemorySize = 256.0; //KB
 }
 
 - (void)applicationDidEnterBackgroundNotification:(NSNotification *)notification{
+    [[DDLoggerManager sharedInstance] resetFileName];
     [self flushToDiskSync:NO];
 }
 

@@ -210,6 +210,12 @@ static const NSInteger DDLogDefaultCacheMaxSize = 1024 * 1024 * 50; // 50M
     }
 }
 
+- (void)resetFileName {
+    self.currentLogName = nil;
+    self.currentLogFilePath = nil;
+}
+
+
 #pragma mark - Private Methods
 
 - (BOOL)isLogFileWithFileName:(NSString *)fileName{
