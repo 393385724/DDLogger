@@ -28,16 +28,16 @@
 }
 
 - (IBAction)showLogViewAction:(UIButton *)sender {
-    if ([[DDLoggerClient sharedInstance] isConsoleShow]) {
+    if ([[DDLogger Logger] isConsoleShow]) {
         sender.titleLabel.text = @"log显示页面";
-        [[DDLoggerClient sharedInstance] hidenConsole];
+        [[DDLogger Logger] hidenConsole];
     } else {
         sender.titleLabel.text = @"关闭log显示页面";
-        [[DDLoggerClient sharedInstance] showConsole];
+        [[DDLogger Logger] showConsole];
     }
 }
 - (IBAction)viewLocalLogAction:(id)sender {
-    [[DDLoggerClient sharedInstance] pikerLogWithViewController:self eventHandler:^(NSArray *logPathList) {
+    [[DDLogger Logger] pikerLogWithViewController:self eventHandler:^(NSArray *logPathList) {
         [logPathList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [[NSFileManager defaultManager] removeItemAtPath:obj error:nil];
         }];
@@ -46,10 +46,10 @@
 
 - (IBAction)writeLogAction:(id)sender {
     NSLog(@"NSLog 这是一条测试数据你能看到么这是一条测试数据你能看到么");
-    DDLog(@"DDLog 这是一条测试数据你能看到么这是一条测试数据你能看到么");
     DDLogInfo(@"DDLogInfo 这是一条测试数据你能看到么这是一条测试数据你能看到么");
     DDLogWarn(@"DDLogWarn 这是一条测试数据你能看到么这是一条测试数据你能看到么");
     DDLogError(@"DDLogError 这是一条测试数据你能看到么这是一条测试数据你能看到么");
+    DDLogFatal(@"DDLogFatal 这是一条测试数据你能看到么这是一条测试数据你能看到么");
 }
 
 //- (void)badAccess

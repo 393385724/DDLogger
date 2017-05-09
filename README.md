@@ -1,15 +1,18 @@
 # DDLogger
-a log redirect to file ，建议使用最新版本
+a log redirect to file ，建议使用最新版本，1.3.0版本之前容易丢失log，建议采用加密log不易丢失
+
+警告：重大变更，接口有改变，引用了腾讯的xlog框架，升级者慎用，工程中有解码脚本使用方法如下：
+python decode_mars_log_file.py 日志路径/日志名字.xlog
 
 将NSLog替换为DDLog或者重新定义NSLog参见DDLog的定义可以在release模式下重向log到预先定义的日志目录
-DDLoggerClient  log控制器
-DDLoggerManager 本地log资源管理
 使用方法：
 前提使用的cocopods
-pod 'DDLogger', '~> 1.2.5'
+pod 'DDLogger', '~> 1.3.0'
 
 ##开始收集log
->- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory fileName:(NSString *)fileName;
+>- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
+                        nameprefix:(NSString *)nameprefix
+                           encrypt:(BOOL)encrypt;
 >
 > >@code
 > >
@@ -17,9 +20,9 @@ pod 'DDLogger', '~> 1.2.5'
 > >
 > >    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 > >    NSString *docDir = [paths objectAtIndex:0];
-> >    [[DDLoggerClient sharedInstance] startLogWithCacheDirectory:docDir fileName:@"log.txt"];
+> >    [[DDLogger Logger] startLogWithCacheDirectory:docDir nameprefix:@"hm" encrypt:NO];
 > >
-> >       return YES;
+> >    return YES;
 > >
 > >}
 > >
@@ -48,7 +51,7 @@ pod 'DDLogger', '~> 1.2.5'
 >
 >- (void)pikerLogWithViewController:(UIViewController *)viewController eventHandler:(DDPikerLogEventHandler)handler;
 
-
 #Iteration
 #2016-11-02 fix flushToDiskSync crash -[__NSArrayM getObjects:range:]: range {0, 1} extends beyond bounds for empty array
 #2016-02-10 change 1、可选对异常的捕捉 2、调整log宏 3、可在查看本地log的管理页面中删除指定的log文件
+#2017-05-10 change 1、支持腾讯的Xlog框架，仍兼容老版本的log写入，日志管理也统一由xlog来管理 2、去掉对异常的捕获，建议使用第三方比如国内bugly 国外fabric

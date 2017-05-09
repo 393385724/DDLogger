@@ -68,9 +68,11 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
 
 - (void)updateCell:(DDLogListTableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     NSString *name = self.dataSoure[indexPath.row];
-    NSString *disPlayName = [name stringByReplacingOccurrencesOfString:@".log" withString:@""];
-    BOOL isSelected = [_selectedLogSet containsObject:name];
-    [cell updateWithTitle:disPlayName isSelected:isSelected];
+    BOOL isSelected = [_selectedLogSet containsObject:name.stringByDeletingPathExtension];
+    if ([name.pathExtension isEqualToString:@"xlog"]) {
+        name = [@"㊙️" stringByAppendingString:name];
+    }
+    [cell updateWithTitle:name.stringByDeletingPathExtension isSelected:isSelected];
 }
 
 #pragma mark -  Private Methods
@@ -143,13 +145,17 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *fileName = self.dataSoure[indexPath.row];
-    DDLogDetailViewController *viewController = [[DDLogDetailViewController alloc] init];
-    viewController.delegate = self;
-    viewController.currentIndexPath = indexPath;
-    viewController.hasPiker = [_selectedLogSet containsObject:fileName];
-    viewController.disPlayName = [fileName stringByDeletingPathExtension];
-    viewController.logFilePath = [self.dataSource logListTableViewController:self logFilePathWithFileName:fileName];
-    [self.navigationController pushViewController:viewController animated:YES];
+    if ([fileName.pathExtension isEqualToString:@"xlog"]) {
+        return;
+    } else {
+        DDLogDetailViewController *viewController = [[DDLogDetailViewController alloc] init];
+        viewController.delegate = self;
+        viewController.currentIndexPath = indexPath;
+        viewController.hasPiker = [_selectedLogSet containsObject:fileName];
+        viewController.disPlayName = [fileName stringByDeletingPathExtension];
+        viewController.logFilePath = [self.dataSource logListTableViewController:self logFilePathWithFileName:fileName];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

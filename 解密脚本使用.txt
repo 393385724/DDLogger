@@ -1,0 +1,1 @@
+python decode_mars_log_file.py 日志路径/MarsSample_20161230.xlog

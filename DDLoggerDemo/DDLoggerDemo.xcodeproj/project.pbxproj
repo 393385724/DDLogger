@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2C7669FD65AA4144B59484A4 /* libPods-DDLoggerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09558A9E56BE8B1150FED63B /* libPods-DDLoggerDemo.a */; };
+		9068DA801EBD6F1A006DDEAA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9068DA7F1EBD6F1A006DDEAA /* libz.tbd */; };
+		9068DA821EBD6F1E006DDEAA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9068DA811EBD6F1E006DDEAA /* SystemConfiguration.framework */; };
+		9068DA841EBD6F28006DDEAA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9068DA831EBD6F28006DDEAA /* CoreTelephony.framework */; };
+		9068DAA81EBDCA92006DDEAA /* DDLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9068DAA71EBDCA92006DDEAA /* DDLogger.mm */; };
 		9090AF911C83E56900169AE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AF901C83E56900169AE2 /* main.m */; };
 		9090AF941C83E56900169AE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090AF931C83E56900169AE2 /* AppDelegate.m */; };
 		9090AF9A1C83E56900169AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9090AF981C83E56900169AE2 /* Main.storyboard */; };
@@ -23,18 +27,25 @@
 		909B40381CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40241CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m */; };
 		909B40391CA6DFFD00A6597D /* DDLogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40261CA6DFFD00A6597D /* DDLogDetailViewController.m */; };
 		909B403A1CA6DFFD00A6597D /* DDLogDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B40271CA6DFFD00A6597D /* DDLogDetailViewController.xib */; };
-		909B403B1CA6DFFD00A6597D /* DDLoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B402A1CA6DFFD00A6597D /* DDLoggerClient.m */; };
-		909B403C1CA6DFFD00A6597D /* DDLoggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B402C1CA6DFFD00A6597D /* DDLoggerManager.m */; };
 		909B403D1CA6DFFD00A6597D /* DDLogListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B402E1CA6DFFD00A6597D /* DDLogListTableViewCell.m */; };
 		909B403E1CA6DFFD00A6597D /* DDLogListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */; };
 		909B403F1CA6DFFD00A6597D /* DDLogListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */; };
 		909B40401CA6DFFD00A6597D /* DDLogListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */; };
-		90A29C4A1D5B170600F63C71 /* DDUncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A29C491D5B170600F63C71 /* DDUncaughtExceptionHandler.m */; };
+		90CBBD701EC1C478007D62D1 /* log_crypt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 90CBBD681EC1C478007D62D1 /* log_crypt.cc */; };
+		90CBBD711EC1C478007D62D1 /* longlink_packer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 90CBBD6A1EC1C478007D62D1 /* longlink_packer.cc */; };
+		90CBBD721EC1C478007D62D1 /* mars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CBBD6C1EC1C478007D62D1 /* mars.framework */; };
+		90CBBD731EC1C478007D62D1 /* shortlink_packer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 90CBBD6D1EC1C478007D62D1 /* shortlink_packer.cc */; };
+		90CBBD7B1EC1D28D007D62D1 /* DDPlaintextLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CBBD781EC1D28D007D62D1 /* DDPlaintextLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09558A9E56BE8B1150FED63B /* libPods-DDLoggerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDLoggerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ADA6965744C4C5B0F43282C /* Pods-DDLoggerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		9068DA7F1EBD6F1A006DDEAA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		9068DA811EBD6F1E006DDEAA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9068DA831EBD6F28006DDEAA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9068DAA61EBDCA92006DDEAA /* DDLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogger.h; sourceTree = "<group>"; };
+		9068DAA71EBDCA92006DDEAA /* DDLogger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DDLogger.mm; sourceTree = "<group>"; };
 		9090AF8C1C83E56900169AE2 /* DDLoggerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDLoggerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9090AF901C83E56900169AE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9090AF921C83E56900169AE2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,19 +68,22 @@
 		909B40251CA6DFFD00A6597D /* DDLogDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogDetailViewController.h; sourceTree = "<group>"; };
 		909B40261CA6DFFD00A6597D /* DDLogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogDetailViewController.m; sourceTree = "<group>"; };
 		909B40271CA6DFFD00A6597D /* DDLogDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLogDetailViewController.xib; sourceTree = "<group>"; };
-		909B40281CA6DFFD00A6597D /* DDLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogger.h; sourceTree = "<group>"; };
-		909B40291CA6DFFD00A6597D /* DDLoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoggerClient.h; sourceTree = "<group>"; };
-		909B402A1CA6DFFD00A6597D /* DDLoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoggerClient.m; sourceTree = "<group>"; };
-		909B402B1CA6DFFD00A6597D /* DDLoggerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoggerManager.h; sourceTree = "<group>"; };
-		909B402C1CA6DFFD00A6597D /* DDLoggerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoggerManager.m; sourceTree = "<group>"; };
 		909B402D1CA6DFFD00A6597D /* DDLogListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogListTableViewCell.h; sourceTree = "<group>"; };
 		909B402E1CA6DFFD00A6597D /* DDLogListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogListTableViewCell.m; sourceTree = "<group>"; };
 		909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLogListTableViewCell.xib; sourceTree = "<group>"; };
 		909B40301CA6DFFD00A6597D /* DDLogListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogListTableViewController.h; sourceTree = "<group>"; };
 		909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLogListTableViewController.m; sourceTree = "<group>"; };
 		909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLogListTableViewController.xib; sourceTree = "<group>"; };
-		90A29C481D5B170600F63C71 /* DDUncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUncaughtExceptionHandler.h; sourceTree = "<group>"; };
-		90A29C491D5B170600F63C71 /* DDUncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUncaughtExceptionHandler.m; sourceTree = "<group>"; };
+		90CBBD681EC1C478007D62D1 /* log_crypt.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log_crypt.cc; sourceTree = "<group>"; };
+		90CBBD691EC1C478007D62D1 /* log_crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log_crypt.h; sourceTree = "<group>"; };
+		90CBBD6A1EC1C478007D62D1 /* longlink_packer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = longlink_packer.cc; sourceTree = "<group>"; };
+		90CBBD6B1EC1C478007D62D1 /* longlink_packer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = longlink_packer.h; sourceTree = "<group>"; };
+		90CBBD6C1EC1C478007D62D1 /* mars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mars.framework; sourceTree = "<group>"; };
+		90CBBD6D1EC1C478007D62D1 /* shortlink_packer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shortlink_packer.cc; sourceTree = "<group>"; };
+		90CBBD6E1EC1C478007D62D1 /* shortlink_packer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shortlink_packer.h; sourceTree = "<group>"; };
+		90CBBD6F1EC1C478007D62D1 /* stnproto_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stnproto_logic.h; sourceTree = "<group>"; };
+		90CBBD771EC1D28D007D62D1 /* DDPlaintextLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPlaintextLogger.h; sourceTree = "<group>"; };
+		90CBBD781EC1D28D007D62D1 /* DDPlaintextLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPlaintextLogger.m; sourceTree = "<group>"; };
 		ABFD2DE07C4967753AEE5629 /* Pods-DDLoggerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDLoggerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDLoggerDemo/Pods-DDLoggerDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +92,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9068DA841EBD6F28006DDEAA /* CoreTelephony.framework in Frameworks */,
+				9068DA821EBD6F1E006DDEAA /* SystemConfiguration.framework in Frameworks */,
+				9068DA801EBD6F1A006DDEAA /* libz.tbd in Frameworks */,
+				90CBBD721EC1C478007D62D1 /* mars.framework in Frameworks */,
 				2C7669FD65AA4144B59484A4 /* libPods-DDLoggerDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,38 +150,54 @@
 		909B401C1CA6DFFD00A6597D /* DDLogger */ = {
 			isa = PBXGroup;
 			children = (
+				90CBBD671EC1C478007D62D1 /* Mars */,
 				909B401D1CA6DFFD00A6597D /* ddlog_check_icon_normal@2x.png */,
 				909B401E1CA6DFFD00A6597D /* ddlog_check_icon_normal@3x.png */,
 				909B401F1CA6DFFD00A6597D /* ddlog_check_icon_selected@2x.png */,
 				909B40201CA6DFFD00A6597D /* ddlog_check_icon_selected@3x.png */,
 				909B40211CA6DFFD00A6597D /* DDLogConsoleView.h */,
 				909B40221CA6DFFD00A6597D /* DDLogConsoleView.m */,
+				90CBBD771EC1D28D007D62D1 /* DDPlaintextLogger.h */,
+				90CBBD781EC1D28D007D62D1 /* DDPlaintextLogger.m */,
 				909B40231CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.h */,
 				909B40241CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m */,
 				909B40251CA6DFFD00A6597D /* DDLogDetailViewController.h */,
 				909B40261CA6DFFD00A6597D /* DDLogDetailViewController.m */,
 				909B40271CA6DFFD00A6597D /* DDLogDetailViewController.xib */,
-				909B40281CA6DFFD00A6597D /* DDLogger.h */,
-				909B40291CA6DFFD00A6597D /* DDLoggerClient.h */,
-				909B402A1CA6DFFD00A6597D /* DDLoggerClient.m */,
-				909B402B1CA6DFFD00A6597D /* DDLoggerManager.h */,
-				909B402C1CA6DFFD00A6597D /* DDLoggerManager.m */,
-				90A29C481D5B170600F63C71 /* DDUncaughtExceptionHandler.h */,
-				90A29C491D5B170600F63C71 /* DDUncaughtExceptionHandler.m */,
 				909B402D1CA6DFFD00A6597D /* DDLogListTableViewCell.h */,
 				909B402E1CA6DFFD00A6597D /* DDLogListTableViewCell.m */,
 				909B402F1CA6DFFD00A6597D /* DDLogListTableViewCell.xib */,
 				909B40301CA6DFFD00A6597D /* DDLogListTableViewController.h */,
 				909B40311CA6DFFD00A6597D /* DDLogListTableViewController.m */,
 				909B40321CA6DFFD00A6597D /* DDLogListTableViewController.xib */,
+				9068DAA61EBDCA92006DDEAA /* DDLogger.h */,
+				9068DAA71EBDCA92006DDEAA /* DDLogger.mm */,
 			);
 			name = DDLogger;
 			path = ../DDLogger;
 			sourceTree = "<group>";
 		};
+		90CBBD671EC1C478007D62D1 /* Mars */ = {
+			isa = PBXGroup;
+			children = (
+				90CBBD681EC1C478007D62D1 /* log_crypt.cc */,
+				90CBBD691EC1C478007D62D1 /* log_crypt.h */,
+				90CBBD6A1EC1C478007D62D1 /* longlink_packer.cc */,
+				90CBBD6B1EC1C478007D62D1 /* longlink_packer.h */,
+				90CBBD6C1EC1C478007D62D1 /* mars.framework */,
+				90CBBD6D1EC1C478007D62D1 /* shortlink_packer.cc */,
+				90CBBD6E1EC1C478007D62D1 /* shortlink_packer.h */,
+				90CBBD6F1EC1C478007D62D1 /* stnproto_logic.h */,
+			);
+			path = Mars;
+			sourceTree = "<group>";
+		};
 		A2733E6B9A1E49937BF1C07B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9068DA831EBD6F28006DDEAA /* CoreTelephony.framework */,
+				9068DA811EBD6F1E006DDEAA /* SystemConfiguration.framework */,
+				9068DA7F1EBD6F1A006DDEAA /* libz.tbd */,
 				09558A9E56BE8B1150FED63B /* libPods-DDLoggerDemo.a */,
 			);
 			name = Frameworks;
@@ -308,17 +342,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				909B403B1CA6DFFD00A6597D /* DDLoggerClient.m in Sources */,
+				90CBBD7B1EC1D28D007D62D1 /* DDPlaintextLogger.m in Sources */,
+				90CBBD711EC1C478007D62D1 /* longlink_packer.cc in Sources */,
 				909B403D1CA6DFFD00A6597D /* DDLogListTableViewCell.m in Sources */,
 				909B40391CA6DFFD00A6597D /* DDLogDetailViewController.m in Sources */,
+				9068DAA81EBDCA92006DDEAA /* DDLogger.mm in Sources */,
+				90CBBD701EC1C478007D62D1 /* log_crypt.cc in Sources */,
 				9090AF941C83E56900169AE2 /* AppDelegate.m in Sources */,
 				909B40371CA6DFFD00A6597D /* DDLogConsoleView.m in Sources */,
 				909B40381CA6DFFD00A6597D /* DDLogDetailKeyboardToolBar.m in Sources */,
-				90A29C4A1D5B170600F63C71 /* DDUncaughtExceptionHandler.m in Sources */,
 				9090AF911C83E56900169AE2 /* main.m in Sources */,
 				9090AFA91C83E69A00169AE2 /* DDMainViewController.m in Sources */,
+				90CBBD731EC1C478007D62D1 /* shortlink_packer.cc in Sources */,
 				909B403F1CA6DFFD00A6597D /* DDLogListTableViewController.m in Sources */,
-				909B403C1CA6DFFD00A6597D /* DDLoggerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +466,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BPBCHD64GW;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DDLogger/Mars\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/ICTextView\"",
+					"\"$(SRCROOT)/../DDLogger/Mars/mars.framework\"",
+				);
 				INFOPLIST_FILE = DDLoggerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DD.DDLoggerDemo;
@@ -443,6 +490,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BPBCHD64GW;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DDLogger/Mars\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/ICTextView\"",
+					"\"$(SRCROOT)/../DDLogger/Mars/mars.framework\"",
+				);
 				INFOPLIST_FILE = DDLoggerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DD.DDLoggerDemo;
