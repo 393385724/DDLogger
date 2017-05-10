@@ -284,11 +284,11 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
             break;
     }
     NSString *dateStr = [self.dateFormatter stringFromDate:[NSDate date]];
-    logString = [logString stringByAppendingFormat:@" [%@] [%d,%llu] ", dateStr, info.processIdentifier, threadId];
+    logString = [logString stringByAppendingFormat:@"[%@][%d,%llu]", dateStr, info.processIdentifier, threadId];
     if (tag) {
-        logString = [logString stringByAppendingFormat:@"[%@] ",tag];
+        logString = [logString stringByAppendingFormat:@"[%@]",tag];
     } else {
-        logString = [logString stringByAppendingString:@"[] "];
+        logString = [logString stringByAppendingString:@"[]"];
     }
     
     logString = [logString stringByAppendingString:@"["];
@@ -308,7 +308,7 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
     if (line >= 0) {
         logString = [logString stringByAppendingFormat:@" %d",line];
     }
-    logString = [logString stringByAppendingString:@"] "];
+    logString = [logString stringByAppendingString:@"]"];
     
     logString = [logString stringByAppendingFormat:@"[%@\n",message];
     return logString;
