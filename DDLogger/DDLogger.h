@@ -129,6 +129,14 @@ typedef void(^DDLoggerPikerEventHandler) (NSArray *logPathList);
  */
 - (void)calculateSizeWithCompletionBlock:(void(^)(NSUInteger fileCount, NSUInteger totalSize))completionBlock;
 
+
+/**
+ 获取本地log文件名
+
+ @return NSArray
+ */
+- (NSArray *)getLogFileNames;
+
 /**
  *  @brief 查看本地存在的log日志
  *

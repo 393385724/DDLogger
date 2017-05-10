@@ -207,6 +207,19 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
     }
 }
 
+- (NSArray *)getLogFileNames{
+    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:self.logDirectory];
+    NSMutableArray *logListArray = [[NSMutableArray alloc] init];
+    for (NSString *fileName in fileEnumerator) {
+        NSString *filePath = [self filePathWithName:fileName];
+        NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+        if ([[attributesDictionary fileType] isEqualToString:NSFileType] && [self isLogFileWithFileName:fileName]) {
+            [logListArray addObject:fileName];
+        }
+    }
+    return logListArray;
+}
+
 - (void)pikerLogWithViewController:(UIViewController *)viewController
                       eventHandler:(DDLoggerPikerEventHandler)handler{
     if (!handler) {
@@ -308,19 +321,6 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
     } else {
         return NO;
     }
-}
-
-- (NSArray *)getLogFileNames{
-    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:self.logDirectory];
-    NSMutableArray *logListArray = [[NSMutableArray alloc] init];
-    for (NSString *fileName in fileEnumerator) {
-        NSString *filePath = [self filePathWithName:fileName];
-        NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-        if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
-            [logListArray addObject:fileName];
-        }
-    }
-    return logListArray;
 }
 
 #pragma mark - DDLogListTableViewControllerDataSoure

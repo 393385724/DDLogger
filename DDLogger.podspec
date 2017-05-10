@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'  
   s.requires_arc = true  
   
-  s.ios.source_files = 'DDLogger/*.{h,m}','DDLogger/Mars/*.{h,cc}'
+  s.ios.source_files = 'DDLogger/*.{h,m,mm}','DDLogger/Mars/*.{h,cc}'
   s.public_header_files = 'DDLogger/DDLogger.h'
   s.libraries = 'z'
   s.ios.vendored_frameworks = 'DDLogger/Mars/*.framework'
