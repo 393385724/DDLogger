@@ -2,7 +2,7 @@
 a log redirect to file ，建议使用最新版本，1.3.0版本之前容易丢失log，建议采用加密log不易丢失
 
 警告：重大变更，接口有改变，引用了腾讯的xlog框架，升级者慎用，工程中有解码脚本使用方法如下：
-python decode_mars_log_file.py 日志路径/日志名字.xlog
+python  脚本路径/decode_mars_log_file.py 日志路径/日志名字.xlog
 
 将NSLog替换为DDLog或者重新定义NSLog参见DDLog的定义可以在release模式下重向log到预先定义的日志目录
 使用方法：

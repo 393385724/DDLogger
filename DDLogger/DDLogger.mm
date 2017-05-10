@@ -58,17 +58,20 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
 
 - (void)startLogWithCacheDirectory:(NSString *)cacheDirectory nameprefix:(NSString *)nameprefix encrypt:(BOOL)encrypt{
     NSAssert(cacheDirectory, @"cacheDirectory must not be nil");
+    
+    NSString *logDirectory = [cacheDirectory stringByAppendingPathComponent:DDLogDirectoryName];
+    self.logDirectory = logDirectory;
+
     //旧log数据迁移
-    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:cacheDirectory];
-    for (NSString *fileName in fileEnumerator) {
+    NSArray *contentsOfDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:cacheDirectory error:nil];
+    for (NSString *fileName in contentsOfDirectory) {
         NSString *filePath = [cacheDirectory stringByAppendingPathComponent:fileName];
         NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-        if ([[attributesDictionary fileType] isEqualToString:NSFileType] && [self isLogFileWithFileName:fileName]) {
-            [[NSFileManager defaultManager] moveItemAtPath:fileName toPath:[self filePathWithName:fileName] error:nil];
+        if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
+            [[NSFileManager defaultManager] moveItemAtPath:filePath toPath:[self filePathWithName:fileName] error:nil];
         }
     }
     
-    NSString *logDirectory = [cacheDirectory stringByAppendingPathComponent:DDLogDirectoryName];
     // set do not backup for logpath
     const char* attrName = "com.apple.MobileBackup";
     u_int8_t attrValue = 1;
@@ -89,7 +92,6 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
     }
     
     self.encrypt = encrypt;
-    self.logDirectory = logDirectory;
     
     if (!self.encrypt) {
         [self.plaintextLogger startLogWithCacheDirectory:self.logDirectory nameprefix:nameprefix];
@@ -208,12 +210,12 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
 }
 
 - (NSArray *)getLogFileNames{
-    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:self.logDirectory];
+    NSArray *contentsOfDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.logDirectory error:nil];
     NSMutableArray *logListArray = [[NSMutableArray alloc] init];
-    for (NSString *fileName in fileEnumerator) {
+    for (NSString *fileName in contentsOfDirectory) {
         NSString *filePath = [self filePathWithName:fileName];
         NSDictionary *attributesDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-        if ([[attributesDictionary fileType] isEqualToString:NSFileType] && [self isLogFileWithFileName:fileName]) {
+        if ([[attributesDictionary fileType] isEqualToString:NSFileTypeRegular] && [self isLogFileWithFileName:fileName]) {
             [logListArray addObject:fileName];
         }
     }
@@ -261,8 +263,7 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
         threadId = pthread_mach_thread_np(pthread_self());
     }
     
-    NSString *dateStr = [self.dateFormatter stringFromDate:[NSDate date]];
-    NSString *logString = [NSString stringWithFormat:@"%@ %@[%d,%llu]", dateStr, info.processName, info.processIdentifier, threadId];
+    NSString *logString = @"";
     switch (level) {
         case DDLogLevelDebug:
             logString = [logString stringByAppendingString:@"[D]"];
@@ -282,10 +283,12 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
         default:
             break;
     }
+    NSString *dateStr = [self.dateFormatter stringFromDate:[NSDate date]];
+    logString = [logString stringByAppendingFormat:@" [%@] [%d,%llu] ", dateStr, info.processIdentifier, threadId];
     if (tag) {
-        logString = [logString stringByAppendingFormat:@"[%@]",tag];
+        logString = [logString stringByAppendingFormat:@"[%@] ",tag];
     } else {
-        logString = [logString stringByAppendingString:@"[]"];
+        logString = [logString stringByAppendingString:@"[] "];
     }
     
     logString = [logString stringByAppendingString:@"["];
@@ -305,7 +308,7 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
     if (line >= 0) {
         logString = [logString stringByAppendingFormat:@" %d",line];
     }
-    logString = [logString stringByAppendingString:@"]"];
+    logString = [logString stringByAppendingString:@"] "];
     
     logString = [logString stringByAppendingFormat:@"[%@\n",message];
     return logString;
@@ -366,7 +369,7 @@ static NSString * const DDEncryptLogPathExtension       = @"xlog";
     if (!_dateFormatter) {
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:[NSLocale currentLocale ].localeIdentifier]];
-        [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd Z HH:mm:ss.SSS"];
     }
     return _dateFormatter;
 }
