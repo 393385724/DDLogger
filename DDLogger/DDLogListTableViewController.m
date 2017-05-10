@@ -70,7 +70,7 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
     NSString *name = self.dataSoure[indexPath.row];
     BOOL isSelected = [_selectedLogSet containsObject:name.stringByDeletingPathExtension];
     if ([name.pathExtension isEqualToString:@"xlog"]) {
-        name = [@"㊙️" stringByAppendingString:name];
+        name = [name stringByAppendingString:@"㊙️"];
     }
     [cell updateWithTitle:name.stringByDeletingPathExtension isSelected:isSelected];
 }
