@@ -69,8 +69,8 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
 - (void)updateCell:(DDLogListTableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     NSString *name = self.dataSoure[indexPath.row];
     BOOL isSelected = [_selectedLogSet containsObject:name.stringByDeletingPathExtension];
-    if ([name.pathExtension isEqualToString:@"xlog"]) {
-        name = [name stringByAppendingString:@"㊙️"];
+    if ([name.pathExtension hasPrefix:@"hms"]) {
+        name = [name.stringByDeletingPathExtension stringByAppendingString:@"㊙️"];
     }
     [cell updateWithTitle:name.stringByDeletingPathExtension isSelected:isSelected];
 }
@@ -145,7 +145,7 @@ NSString *const DDCellReuseIdentifier = @"DDLogListTableViewCellReuseIdentifier"
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *fileName = self.dataSoure[indexPath.row];
-    if ([fileName.pathExtension isEqualToString:@"xlog"]) {
+    if ([fileName.pathExtension hasPrefix:@"hms"]) {
         return;
     } else {
         DDLogDetailViewController *viewController = [[DDLogDetailViewController alloc] init];

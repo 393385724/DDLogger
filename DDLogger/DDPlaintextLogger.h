@@ -7,37 +7,52 @@
 //
 
 #import <Foundation/Foundation.h>
-
-FOUNDATION_EXTERN NSString * const DDPlaintextLogPathExtension;
+#import "DDLoggerDefine.h"
 
 @interface DDPlaintextLogger : NSObject
 
 /**
- *  @brief 指定log文件存储的路径
- *
- *  @param cacheDirectory log存储的目录
- *  @param nameprefix 日志文件前缀
- */
-- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory nameprefix:(NSString *)nameprefix;
+ 开启日志，指定log文件存储
 
-/**
- 打印log
-
- @param log log信息
+ @param cacheDirectory log存储的目录
+ @param nameprefix 日志文件前缀
  */
-- (void)printfLog:(NSString *)log;
-
-/**
- *  @brief 将内存中的log存入磁盘
- *
- *  @param isSync YES ? 同步 : 异步
- */
-- (void)flushToDiskSync:(BOOL)isSync;
++ (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
+                        nameprefix:(NSString *)nameprefix;
 
 
 /**
- *  @brief 停止log收集
+ 配置log文件后缀与保留时间
+
+ @param logSuffix 后缀
+ @param fileCount 保留文件数
  */
-- (void)stopLog;
++ (void)setLogSuffix:(NSString *)logSuffix fileCount:(NSUInteger)fileCount;
+
+
+/**
+ 写一行日志到文件
+
+ @param file 文件名
+ @param function 函数名
+ @param line 所在的行号
+ @param level HMLogLevel
+ @param tag 功能标签
+ @param format 文字格式
+ @param args 参数
+ */
++ (void)writeLogFile:(const char *)file
+            function:(const char *)function
+                line:(int)line
+               level:(HMLogLevel)level
+                 tag:(NSString *)tag
+              format:(NSString *)format
+                args:(va_list)args;
+
+
+/**
+ 将缓存日志存入到文件
+ */
++ (void)flushToDisk;
 
 @end

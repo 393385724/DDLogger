@@ -46,10 +46,9 @@
 
 - (IBAction)writeLogAction:(id)sender {
     NSLog(@"NSLog 这是一条测试数据你能看到么这是一条测试数据你能看到么");
-    DDLogInfo(@"DDLogInfo 这是一条测试数据你能看到么这是一条测试数据你能看到么");
     DDLogWarn(@"DDLogWarn 这是一条测试数据你能看到么这是一条测试数据你能看到么");
     DDLogError(@"DDLogError 这是一条测试数据你能看到么这是一条测试数据你能看到么");
-    DDLogFatal(@"DDLogFatal 这是一条测试数据你能看到么这是一条测试数据你能看到么");
+    DDLogInfo(@"DDLogFatal 这是一条测试数据你能看到么这是一条测试数据你能看到么");
 }
 
 //- (void)badAccess

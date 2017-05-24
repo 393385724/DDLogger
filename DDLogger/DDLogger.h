@@ -10,25 +10,9 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "DDLoggerDefine.h"
 
 @class UIViewController;
-
-/**
- log打印的信息
- 
- - DDLogLevelDebug:  调试信息
- - DDLogLevelInfo:   信息
- - DDLogLevelWarn:   警告
- - DDLogLevelError:  基本错误
- - DDLogLevelFatal:  致命错误
- */
-typedef NS_ENUM(NSUInteger, DDLogLevel) {
-    DDLogLevelDebug         = 0,
-    DDLogLevelInfo          = 1,
-    DDLogLevelWarn          = 2,
-    DDLogLevelError         = 3,
-    DDLogLevelFatal         = 4,
-};
 
 /**
  如下定义了log输出宏，对Debug和release分别作了特殊处理,你也可以自定义宏
@@ -40,11 +24,40 @@ typedef NS_ENUM(NSUInteger, DDLogLevel) {
  5、DDLogFatal     [F]       打印到控制台/输出到文件            输出到文件
  */
 
-#define NSLog(...)                [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:DDLogLevelDebug tag:nil format:__VA_ARGS__];
-#define DDLogInfo(...)            [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:DDLogLevelInfo tag:nil format:__VA_ARGS__];
-#define DDLogWarn(...)            [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:DDLogLevelWarn tag:nil format:__VA_ARGS__];
-#define DDLogError(...)           [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:DDLogLevelError tag:nil format:__VA_ARGS__];
-#define DDLogFatal(...)           [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:DDLogLevelFatal tag:nil format:__VA_ARGS__];
+#ifdef NSLog
+#undef NSLog
+#endif
+
+#ifdef DDLogInfo
+#undef DDLogInfo
+#endif
+
+#ifdef DDLogWarn
+#undef DDLogWarn
+#endif
+
+#ifdef DDLogError
+#undef DDLogError
+#endif
+
+#ifndef NSLog
+#define NSLog(...)                [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelDebug tag:nil format:__VA_ARGS__];
+#endif
+
+
+#ifndef DDLogInfo
+#define DDLogInfo(...)            [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelInfo tag:nil format:__VA_ARGS__];
+#endif
+
+
+#ifndef DDLogWarn
+#define DDLogWarn(...)            [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelWarn tag:nil format:__VA_ARGS__];
+#endif
+
+
+#ifndef DDLogError
+#define DDLogError(...)           [[DDLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelError tag:nil format:__VA_ARGS__];
+#endif
 
 /**
  *  @brief 选取log日志回调结果
@@ -68,8 +81,23 @@ typedef void(^DDLoggerPikerEventHandler) (NSArray *logPathList);
 + (DDLogger *)Logger;
 
 /**
- 开启log日志，在程序刚启动的时候调用
+ 开启log日志，在程序刚启动的时候调用=
 
+ @param cacheDirectory 日志缓存路径
+ @param nameprefix 单个日志文件名前缀
+ @param logPathExtension 日志后缀
+ @param maxDays 保留最长时间（加密则是时间，不加密则是文件个数）
+ @param encrypt 是否加密
+ */
+- (void)startLogWithCacheDirectory:(NSString *)cacheDirectory
+                        nameprefix:(NSString *)nameprefix
+                  logPathExtension:(NSString *)logPathExtension
+                           maxDays:(NSUInteger)maxDays
+                           encrypt:(BOOL)encrypt;
+
+/**
+ 开启log日志，在程序刚启动的时候调用
+ 
  @param cacheDirectory 日志缓存路径
  @param nameprefix 单个日志文件名前缀
  @param encrypt 是否加密
@@ -84,22 +112,24 @@ typedef void(^DDLoggerPikerEventHandler) (NSArray *logPathList);
  @param file 调用该函数的文件名
  @param function 调用改函数的函数名
  @param line 当前行数
- @param level DDLogLevel
+ @param level HMLogLevel
  @param tag 功能
  @param format 多参数字符串
  */
 - (void)writeLogFile:(const char *)file
             function:(const char *)function
                 line:(int)line
-               level:(DDLogLevel)level
+               level:(HMLogLevel)level
                  tag:(NSString *)tag
               format:(NSString *)format, ...;
 
-/**
- 关闭日志，在程序退出的时候调用
- */
-- (void)stopLog;
 
+/**
+ 内存中的日志存入文件
+
+ @param sync 是否同步
+ */
+- (void)flushToDiskSync:(BOOL)sync;
 
 /*******自定义手机控制台输出*********/
 /**

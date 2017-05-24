@@ -30,6 +30,8 @@ enum TAppenderMode
     kAppednerSync,
 };
 
+void appender_set_logSuffix(const char* logSuffix);
+void appender_set_maxLogAliveTime(const long maxLogAliveTime);
 void appender_open(TAppenderMode _mode, const char* _dir, const char* _nameprefix);
 void appender_open_with_cache(TAppenderMode _mode, const std::string& _cachedir, const std::string& _logdir, const char* _nameprefix);
 void appender_flush();

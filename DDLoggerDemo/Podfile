@@ -6,4 +6,5 @@ workspace 'DDLoggerDemo'
 target :DDLoggerDemo do
   xcodeproj 'DDLoggerDemo'
     pod 'ICTextView', '~> 2.0.1'
+    pod 'CocoaLumberjack', '~> 3.2.0'
 end

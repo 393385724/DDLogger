@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docDir = [paths objectAtIndex:0];
-    [[DDLogger Logger] startLogWithCacheDirectory:docDir nameprefix:@"hm" encrypt:NO];
+    [[DDLogger Logger] startLogWithCacheDirectory:docDir nameprefix:@"hm" encrypt:YES];
     
     DDMainViewController *viewController = [[DDMainViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -51,7 +51,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[DDLogger Logger] stopLog];
 }
 
 @end

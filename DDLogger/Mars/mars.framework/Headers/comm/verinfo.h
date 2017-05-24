@@ -2,10 +2,10 @@
 #ifndef Mars_verinfo_h
 #define Mars_verinfo_h
 
-#define MARS_REVISION ""
-#define MARS_PATH ""
+#define MARS_REVISION "de1982c"
+#define MARS_PATH "custom"
 #define MARS_URL ""
-#define MARS_BUILD_TIME "2017-05-05 18:27:41"
-#define MARS_TAG "tag_[2017-05-05_18.27]@@lilingang"
+#define MARS_BUILD_TIME "2017-05-24 18:10:24"
+#define MARS_TAG "lilingang_[2017-05-24_18.10]@git-de1982c@lilingang"
 
 #endif

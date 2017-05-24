@@ -1,12 +1,20 @@
 PODS:
+  - CocoaLumberjack (3.2.0):
+    - CocoaLumberjack/Default (= 3.2.0)
+    - CocoaLumberjack/Extensions (= 3.2.0)
+  - CocoaLumberjack/Default (3.2.0)
+  - CocoaLumberjack/Extensions (3.2.0):
+    - CocoaLumberjack/Default
   - ICTextView (2.0.1)
 
 DEPENDENCIES:
+  - CocoaLumberjack (~> 3.2.0)
   - ICTextView (~> 2.0.1)
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
   ICTextView: 937aca5dd49e39e9cca41ababe8c55bf99c634fc
 
-PODFILE CHECKSUM: 5d0c53ef6b8cde724c1c537866fce84a4c4aa22a
+PODFILE CHECKSUM: 4ed177571a1e7cc690d7740e846981e1dfc0916d
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1
