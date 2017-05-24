@@ -62,7 +62,7 @@
 /**
  *  @brief 选取log日志回调结果
  *
- *  @param logList      选中的log日志路径数组
+ *  @param logPathList      选中的log日志路径数组
  */
 typedef void(^DDLoggerPikerEventHandler) (NSArray *logPathList);
 

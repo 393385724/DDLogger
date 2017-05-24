@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|  
 	s.name             = "DDLogger"  
-	s.version          = "1.3.0"  
+	s.version          = "1.4.0"  
 	s.summary          = "simple, pretty and powerful logger for iOS with piker、viewer、console"  
 	s.homepage         = "https://github.com/393385724/DDLogger"  
 	s.license          = 'MIT'  
@@ -13,12 +13,13 @@ Pod::Spec.new do |s|
 
 
 	s.source_files  = 'DDLogger/*.{h,m,mm}','DDLogger/Mars/*.{h,cc}'
-	s.public_header_files = 'DDLogger/DDLogger.h'
+	s.public_header_files = 'DDLogger/DDLogger.h','DDLogger/DDLoggerDefine.h'
 	s.ios.vendored_frameworks = 'DDLogger/Mars/*.framework'
 	s.ios.resources = ['DDLogger/*.png','DDLogger/*.xib']
 	s.frameworks = 'CoreTelephony','SystemConfiguration','Foundation', 'CoreGraphics', 'UIKit'
 	s.libraries = 'z'
 	s.user_target_xcconfig = { 'ENABLE_BITCODE' => 'NO' }
 	s.dependency 'ICTextView', '~> 2.0.1'
+	s.dependency 'CocoaLumberjack', '~> 3.2.0'
 
 end  
