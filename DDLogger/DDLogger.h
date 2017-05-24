@@ -21,7 +21,6 @@
  2、DDLogInfo      [I]       打印到控制台/输出到文件            输出到文件
  3、DDLogWarn      [W]       打印到控制台/输出到文件            输出到文件
  4、DDLogError     [E]       打印到控制台/输出到文件            输出到文件
- 5、DDLogFatal     [F]       打印到控制台/输出到文件            输出到文件
  */
 
 #ifdef NSLog

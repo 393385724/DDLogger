@@ -287,7 +287,7 @@ bool LogCrypt::GetPeriodLogs(const char* const _log_path, int _begin_hour, int _
 
 void LogCrypt::CryptSyncLog(const char* const _log_data, size_t _input_len, char* _output, size_t& _output_len) {
     uint16_t seq = __GetSeq(false);
-    uint32_t len = std::min(_input_len, _output_len - GetHeaderLen() - GetTailerLen());
+    uint32_t len = (uint32_t)std::min(_input_len, _output_len - GetHeaderLen() - GetTailerLen());
     
     memcpy(_output + GetHeaderLen(), _log_data, len);
     _output[GetHeaderLen() + len] = kMagicEnd;
