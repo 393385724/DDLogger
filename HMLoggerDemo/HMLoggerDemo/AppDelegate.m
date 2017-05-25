@@ -15,7 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docDir = [paths objectAtIndex:0];
-    [[HMLogger Logger] startLogWithCacheDirectory:docDir nameprefix:@"hm" encrypt:NO];
+    [[HMLogger Logger] startLogWithCacheDirectory:docDir nameprefix:@"hm" encrypt:YES];
     
     DDMainViewController *viewController = [[DDMainViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];

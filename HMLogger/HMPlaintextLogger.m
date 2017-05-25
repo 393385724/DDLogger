@@ -199,7 +199,7 @@ static const NSUInteger ddLogLevel = DDLogLevelError | DDLogFlagWarning | DDLogF
         default:
             break;
     }
-    [DDLog log:NO level:ddLogLevel flag:flag context:0 file:file function:function line:line tag:tag format:format args:args];
+    [DDLog log:YES level:ddLogLevel flag:flag context:0 file:file function:function line:line tag:tag format:format args:args];
 }
 
 

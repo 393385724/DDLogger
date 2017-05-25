@@ -27,16 +27,16 @@
 #undef NSLog
 #endif
 
-#ifdef HMLogInfo
-#undef HMLogInfo
+#ifdef DDLogInfo
+#undef DDLogInfo
 #endif
 
-#ifdef HMLogWarn
-#undef HMLogWarn
+#ifdef DDLogWarn
+#undef DDLogWarn
 #endif
 
-#ifdef HMLogError
-#undef HMLogError
+#ifdef DDLogError
+#undef DDLogError
 #endif
 
 #ifndef NSLog
@@ -44,18 +44,18 @@
 #endif
 
 
-#ifndef HMLogInfo
-#define HMLogInfo(...)            [[HMLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelInfo tag:nil format:__VA_ARGS__];
+#ifndef DDLogInfo
+#define DDLogInfo(...)            [[HMLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelInfo tag:nil format:__VA_ARGS__];
 #endif
 
 
-#ifndef HMLogWarn
-#define HMLogWarn(...)            [[HMLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelWarn tag:nil format:__VA_ARGS__];
+#ifndef DDLogWarn
+#define DDLogWarn(...)            [[HMLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelWarn tag:nil format:__VA_ARGS__];
 #endif
 
 
-#ifndef HMLogError
-#define HMLogError(...)           [[HMLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelError tag:nil format:__VA_ARGS__];
+#ifndef DDLogError
+#define DDLogError(...)           [[HMLogger Logger] writeLogFile:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ level:HMLogLevelError tag:nil format:__VA_ARGS__];
 #endif
 
 /**
