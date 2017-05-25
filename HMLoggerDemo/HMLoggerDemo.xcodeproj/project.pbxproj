@@ -1,0 +1,542 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		90C0D3021ED66EAA00FE3775 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C0D3011ED66EAA00FE3775 /* libstdc++.tbd */; };
+		90F6FC401ED664CB004250A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC3F1ED664CB004250A7 /* main.m */; };
+		90F6FC431ED664CB004250A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC421ED664CB004250A7 /* AppDelegate.m */; };
+		90F6FC491ED664CB004250A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC471ED664CB004250A7 /* Main.storyboard */; };
+		90F6FC4B1ED664CB004250A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC4A1ED664CB004250A7 /* Assets.xcassets */; };
+		90F6FC4E1ED664CB004250A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC4C1ED664CB004250A7 /* LaunchScreen.storyboard */; };
+		90F6FC581ED664E8004250A7 /* DDMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC561ED664E8004250A7 /* DDMainViewController.m */; };
+		90F6FC591ED664E8004250A7 /* DDMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC571ED664E8004250A7 /* DDMainViewController.xib */; };
+		90F6FC7E1ED66536004250A7 /* HMEncryptLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC5E1ED66536004250A7 /* HMEncryptLogger.mm */; };
+		90F6FC7F1ED66536004250A7 /* ddlog_check_icon_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC5F1ED66536004250A7 /* ddlog_check_icon_normal@2x.png */; };
+		90F6FC801ED66536004250A7 /* ddlog_check_icon_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC601ED66536004250A7 /* ddlog_check_icon_normal@3x.png */; };
+		90F6FC811ED66536004250A7 /* ddlog_check_icon_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC611ED66536004250A7 /* ddlog_check_icon_selected@2x.png */; };
+		90F6FC821ED66536004250A7 /* ddlog_check_icon_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC621ED66536004250A7 /* ddlog_check_icon_selected@3x.png */; };
+		90F6FC831ED66536004250A7 /* HMPlaintextLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC641ED66536004250A7 /* HMPlaintextLogger.m */; };
+		90F6FC841ED66536004250A7 /* HMLogConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC661ED66536004250A7 /* HMLogConsoleView.m */; };
+		90F6FC851ED66536004250A7 /* HMLogDetailKeyboardToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC681ED66536004250A7 /* HMLogDetailKeyboardToolBar.m */; };
+		90F6FC861ED66536004250A7 /* HMLogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC6A1ED66536004250A7 /* HMLogDetailViewController.m */; };
+		90F6FC871ED66536004250A7 /* HMLogDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC6B1ED66536004250A7 /* HMLogDetailViewController.xib */; };
+		90F6FC881ED66536004250A7 /* HMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC6D1ED66536004250A7 /* HMLogger.m */; };
+		90F6FC891ED66536004250A7 /* HMLogListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC701ED66536004250A7 /* HMLogListTableViewCell.m */; };
+		90F6FC8A1ED66536004250A7 /* HMLogListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC711ED66536004250A7 /* HMLogListTableViewCell.xib */; };
+		90F6FC8B1ED66536004250A7 /* HMLogListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC731ED66536004250A7 /* HMLogListTableViewController.m */; };
+		90F6FC8C1ED66536004250A7 /* HMLogListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F6FC741ED66536004250A7 /* HMLogListTableViewController.xib */; };
+		90F6FC9E1ED66739004250A7 /* log_crypt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC961ED66739004250A7 /* log_crypt.cc */; };
+		90F6FC9F1ED66739004250A7 /* longlink_packer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC981ED66739004250A7 /* longlink_packer.cc */; };
+		90F6FCA01ED66739004250A7 /* mars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F6FC9A1ED66739004250A7 /* mars.framework */; };
+		90F6FCA11ED66739004250A7 /* shortlink_packer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 90F6FC9B1ED66739004250A7 /* shortlink_packer.cc */; };
+		90F6FCA31ED66761004250A7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F6FCA21ED66761004250A7 /* CoreTelephony.framework */; };
+		90F6FCA51ED66769004250A7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F6FCA41ED66769004250A7 /* SystemConfiguration.framework */; };
+		90F6FCA71ED66772004250A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F6FCA61ED66772004250A7 /* libz.tbd */; };
+		BB9A83052D48E0BBEE71F71E /* libPods-HMLoggerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6734E4AD8C02C8497E257DD2 /* libPods-HMLoggerDemo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		232F6B44C5544EECD0A40232 /* Pods-HMLoggerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMLoggerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMLoggerDemo/Pods-HMLoggerDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		6734E4AD8C02C8497E257DD2 /* libPods-HMLoggerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HMLoggerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		90C0D3011ED66EAA00FE3775 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		90F6FC3B1ED664CB004250A7 /* HMLoggerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMLoggerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90F6FC3F1ED664CB004250A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		90F6FC411ED664CB004250A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		90F6FC421ED664CB004250A7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		90F6FC481ED664CB004250A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		90F6FC4A1ED664CB004250A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		90F6FC4D1ED664CB004250A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		90F6FC4F1ED664CB004250A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90F6FC551ED664E8004250A7 /* DDMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMainViewController.h; sourceTree = "<group>"; };
+		90F6FC561ED664E8004250A7 /* DDMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMainViewController.m; sourceTree = "<group>"; };
+		90F6FC571ED664E8004250A7 /* DDMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDMainViewController.xib; sourceTree = "<group>"; };
+		90F6FC5D1ED66536004250A7 /* HMEncryptLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEncryptLogger.h; sourceTree = "<group>"; };
+		90F6FC5E1ED66536004250A7 /* HMEncryptLogger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HMEncryptLogger.mm; sourceTree = "<group>"; };
+		90F6FC5F1ED66536004250A7 /* ddlog_check_icon_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_normal@2x.png"; sourceTree = "<group>"; };
+		90F6FC601ED66536004250A7 /* ddlog_check_icon_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_normal@3x.png"; sourceTree = "<group>"; };
+		90F6FC611ED66536004250A7 /* ddlog_check_icon_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_selected@2x.png"; sourceTree = "<group>"; };
+		90F6FC621ED66536004250A7 /* ddlog_check_icon_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ddlog_check_icon_selected@3x.png"; sourceTree = "<group>"; };
+		90F6FC631ED66536004250A7 /* HMPlaintextLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMPlaintextLogger.h; sourceTree = "<group>"; };
+		90F6FC641ED66536004250A7 /* HMPlaintextLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMPlaintextLogger.m; sourceTree = "<group>"; };
+		90F6FC651ED66536004250A7 /* HMLogConsoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogConsoleView.h; sourceTree = "<group>"; };
+		90F6FC661ED66536004250A7 /* HMLogConsoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogConsoleView.m; sourceTree = "<group>"; };
+		90F6FC671ED66536004250A7 /* HMLogDetailKeyboardToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogDetailKeyboardToolBar.h; sourceTree = "<group>"; };
+		90F6FC681ED66536004250A7 /* HMLogDetailKeyboardToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogDetailKeyboardToolBar.m; sourceTree = "<group>"; };
+		90F6FC691ED66536004250A7 /* HMLogDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogDetailViewController.h; sourceTree = "<group>"; };
+		90F6FC6A1ED66536004250A7 /* HMLogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogDetailViewController.m; sourceTree = "<group>"; };
+		90F6FC6B1ED66536004250A7 /* HMLogDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HMLogDetailViewController.xib; sourceTree = "<group>"; };
+		90F6FC6C1ED66536004250A7 /* HMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogger.h; sourceTree = "<group>"; };
+		90F6FC6D1ED66536004250A7 /* HMLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogger.m; sourceTree = "<group>"; };
+		90F6FC6E1ED66536004250A7 /* HMLoggerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLoggerDefine.h; sourceTree = "<group>"; };
+		90F6FC6F1ED66536004250A7 /* HMLogListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogListTableViewCell.h; sourceTree = "<group>"; };
+		90F6FC701ED66536004250A7 /* HMLogListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogListTableViewCell.m; sourceTree = "<group>"; };
+		90F6FC711ED66536004250A7 /* HMLogListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HMLogListTableViewCell.xib; sourceTree = "<group>"; };
+		90F6FC721ED66536004250A7 /* HMLogListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLogListTableViewController.h; sourceTree = "<group>"; };
+		90F6FC731ED66536004250A7 /* HMLogListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLogListTableViewController.m; sourceTree = "<group>"; };
+		90F6FC741ED66536004250A7 /* HMLogListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HMLogListTableViewController.xib; sourceTree = "<group>"; };
+		90F6FC961ED66739004250A7 /* log_crypt.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log_crypt.cc; sourceTree = "<group>"; };
+		90F6FC971ED66739004250A7 /* log_crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log_crypt.h; sourceTree = "<group>"; };
+		90F6FC981ED66739004250A7 /* longlink_packer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = longlink_packer.cc; sourceTree = "<group>"; };
+		90F6FC991ED66739004250A7 /* longlink_packer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = longlink_packer.h; sourceTree = "<group>"; };
+		90F6FC9A1ED66739004250A7 /* mars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mars.framework; sourceTree = "<group>"; };
+		90F6FC9B1ED66739004250A7 /* shortlink_packer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shortlink_packer.cc; sourceTree = "<group>"; };
+		90F6FC9C1ED66739004250A7 /* shortlink_packer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shortlink_packer.h; sourceTree = "<group>"; };
+		90F6FC9D1ED66739004250A7 /* stnproto_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stnproto_logic.h; sourceTree = "<group>"; };
+		90F6FCA21ED66761004250A7 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		90F6FCA41ED66769004250A7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		90F6FCA61ED66772004250A7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		FD6535F7CE737912B7E00C5C /* Pods-HMLoggerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMLoggerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMLoggerDemo/Pods-HMLoggerDemo.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		90F6FC381ED664CB004250A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90C0D3021ED66EAA00FE3775 /* libstdc++.tbd in Frameworks */,
+				90F6FCA71ED66772004250A7 /* libz.tbd in Frameworks */,
+				90F6FCA51ED66769004250A7 /* SystemConfiguration.framework in Frameworks */,
+				90F6FCA31ED66761004250A7 /* CoreTelephony.framework in Frameworks */,
+				BB9A83052D48E0BBEE71F71E /* libPods-HMLoggerDemo.a in Frameworks */,
+				90F6FCA01ED66739004250A7 /* mars.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6C410E55AEE88C7B134D0EEE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				232F6B44C5544EECD0A40232 /* Pods-HMLoggerDemo.debug.xcconfig */,
+				FD6535F7CE737912B7E00C5C /* Pods-HMLoggerDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		81ABE6DFD25196F3F8929FD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90C0D3011ED66EAA00FE3775 /* libstdc++.tbd */,
+				90F6FCA61ED66772004250A7 /* libz.tbd */,
+				90F6FCA41ED66769004250A7 /* SystemConfiguration.framework */,
+				90F6FCA21ED66761004250A7 /* CoreTelephony.framework */,
+				6734E4AD8C02C8497E257DD2 /* libPods-HMLoggerDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		90F6FC321ED664CB004250A7 = {
+			isa = PBXGroup;
+			children = (
+				90F6FC5C1ED66536004250A7 /* HMLogger */,
+				90F6FC3D1ED664CB004250A7 /* HMLoggerDemo */,
+				90F6FC3C1ED664CB004250A7 /* Products */,
+				6C410E55AEE88C7B134D0EEE /* Pods */,
+				81ABE6DFD25196F3F8929FD4 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		90F6FC3C1ED664CB004250A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				90F6FC3B1ED664CB004250A7 /* HMLoggerDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		90F6FC3D1ED664CB004250A7 /* HMLoggerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				90F6FC551ED664E8004250A7 /* DDMainViewController.h */,
+				90F6FC561ED664E8004250A7 /* DDMainViewController.m */,
+				90F6FC571ED664E8004250A7 /* DDMainViewController.xib */,
+				90F6FC411ED664CB004250A7 /* AppDelegate.h */,
+				90F6FC421ED664CB004250A7 /* AppDelegate.m */,
+				90F6FC471ED664CB004250A7 /* Main.storyboard */,
+				90F6FC4A1ED664CB004250A7 /* Assets.xcassets */,
+				90F6FC4C1ED664CB004250A7 /* LaunchScreen.storyboard */,
+				90F6FC4F1ED664CB004250A7 /* Info.plist */,
+				90F6FC3E1ED664CB004250A7 /* Supporting Files */,
+			);
+			path = HMLoggerDemo;
+			sourceTree = "<group>";
+		};
+		90F6FC3E1ED664CB004250A7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				90F6FC3F1ED664CB004250A7 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		90F6FC5C1ED66536004250A7 /* HMLogger */ = {
+			isa = PBXGroup;
+			children = (
+				90F6FC951ED66739004250A7 /* Mars */,
+				90F6FC5D1ED66536004250A7 /* HMEncryptLogger.h */,
+				90F6FC5E1ED66536004250A7 /* HMEncryptLogger.mm */,
+				90F6FC5F1ED66536004250A7 /* ddlog_check_icon_normal@2x.png */,
+				90F6FC601ED66536004250A7 /* ddlog_check_icon_normal@3x.png */,
+				90F6FC611ED66536004250A7 /* ddlog_check_icon_selected@2x.png */,
+				90F6FC621ED66536004250A7 /* ddlog_check_icon_selected@3x.png */,
+				90F6FC631ED66536004250A7 /* HMPlaintextLogger.h */,
+				90F6FC641ED66536004250A7 /* HMPlaintextLogger.m */,
+				90F6FC651ED66536004250A7 /* HMLogConsoleView.h */,
+				90F6FC661ED66536004250A7 /* HMLogConsoleView.m */,
+				90F6FC671ED66536004250A7 /* HMLogDetailKeyboardToolBar.h */,
+				90F6FC681ED66536004250A7 /* HMLogDetailKeyboardToolBar.m */,
+				90F6FC691ED66536004250A7 /* HMLogDetailViewController.h */,
+				90F6FC6A1ED66536004250A7 /* HMLogDetailViewController.m */,
+				90F6FC6B1ED66536004250A7 /* HMLogDetailViewController.xib */,
+				90F6FC6C1ED66536004250A7 /* HMLogger.h */,
+				90F6FC6D1ED66536004250A7 /* HMLogger.m */,
+				90F6FC6E1ED66536004250A7 /* HMLoggerDefine.h */,
+				90F6FC6F1ED66536004250A7 /* HMLogListTableViewCell.h */,
+				90F6FC701ED66536004250A7 /* HMLogListTableViewCell.m */,
+				90F6FC711ED66536004250A7 /* HMLogListTableViewCell.xib */,
+				90F6FC721ED66536004250A7 /* HMLogListTableViewController.h */,
+				90F6FC731ED66536004250A7 /* HMLogListTableViewController.m */,
+				90F6FC741ED66536004250A7 /* HMLogListTableViewController.xib */,
+			);
+			name = HMLogger;
+			path = ../HMLogger;
+			sourceTree = "<group>";
+		};
+		90F6FC951ED66739004250A7 /* Mars */ = {
+			isa = PBXGroup;
+			children = (
+				90F6FC961ED66739004250A7 /* log_crypt.cc */,
+				90F6FC971ED66739004250A7 /* log_crypt.h */,
+				90F6FC981ED66739004250A7 /* longlink_packer.cc */,
+				90F6FC991ED66739004250A7 /* longlink_packer.h */,
+				90F6FC9A1ED66739004250A7 /* mars.framework */,
+				90F6FC9B1ED66739004250A7 /* shortlink_packer.cc */,
+				90F6FC9C1ED66739004250A7 /* shortlink_packer.h */,
+				90F6FC9D1ED66739004250A7 /* stnproto_logic.h */,
+			);
+			path = Mars;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		90F6FC3A1ED664CB004250A7 /* HMLoggerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90F6FC521ED664CB004250A7 /* Build configuration list for PBXNativeTarget "HMLoggerDemo" */;
+			buildPhases = (
+				FCD821F42A884D0849593B45 /* [CP] Check Pods Manifest.lock */,
+				90F6FC371ED664CB004250A7 /* Sources */,
+				90F6FC381ED664CB004250A7 /* Frameworks */,
+				90F6FC391ED664CB004250A7 /* Resources */,
+				6BAC99A5FC47D89D32DA6A41 /* [CP] Embed Pods Frameworks */,
+				2707D9BD4182ADEEC7881FC5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HMLoggerDemo;
+			productName = HMLoggerDemo;
+			productReference = 90F6FC3B1ED664CB004250A7 /* HMLoggerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		90F6FC331ED664CB004250A7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = huami;
+				TargetAttributes = {
+					90F6FC3A1ED664CB004250A7 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = BPBCHD64GW;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 90F6FC361ED664CB004250A7 /* Build configuration list for PBXProject "HMLoggerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 90F6FC321ED664CB004250A7;
+			productRefGroup = 90F6FC3C1ED664CB004250A7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				90F6FC3A1ED664CB004250A7 /* HMLoggerDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		90F6FC391ED664CB004250A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90F6FC4E1ED664CB004250A7 /* LaunchScreen.storyboard in Resources */,
+				90F6FC8A1ED66536004250A7 /* HMLogListTableViewCell.xib in Resources */,
+				90F6FC591ED664E8004250A7 /* DDMainViewController.xib in Resources */,
+				90F6FC821ED66536004250A7 /* ddlog_check_icon_selected@3x.png in Resources */,
+				90F6FC4B1ED664CB004250A7 /* Assets.xcassets in Resources */,
+				90F6FC811ED66536004250A7 /* ddlog_check_icon_selected@2x.png in Resources */,
+				90F6FC491ED664CB004250A7 /* Main.storyboard in Resources */,
+				90F6FC8C1ED66536004250A7 /* HMLogListTableViewController.xib in Resources */,
+				90F6FC871ED66536004250A7 /* HMLogDetailViewController.xib in Resources */,
+				90F6FC7F1ED66536004250A7 /* ddlog_check_icon_normal@2x.png in Resources */,
+				90F6FC801ED66536004250A7 /* ddlog_check_icon_normal@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2707D9BD4182ADEEC7881FC5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMLoggerDemo/Pods-HMLoggerDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BAC99A5FC47D89D32DA6A41 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMLoggerDemo/Pods-HMLoggerDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCD821F42A884D0849593B45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		90F6FC371ED664CB004250A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90F6FC881ED66536004250A7 /* HMLogger.m in Sources */,
+				90F6FC431ED664CB004250A7 /* AppDelegate.m in Sources */,
+				90F6FC851ED66536004250A7 /* HMLogDetailKeyboardToolBar.m in Sources */,
+				90F6FC891ED66536004250A7 /* HMLogListTableViewCell.m in Sources */,
+				90F6FC8B1ED66536004250A7 /* HMLogListTableViewController.m in Sources */,
+				90F6FC401ED664CB004250A7 /* main.m in Sources */,
+				90F6FC841ED66536004250A7 /* HMLogConsoleView.m in Sources */,
+				90F6FC581ED664E8004250A7 /* DDMainViewController.m in Sources */,
+				90F6FC831ED66536004250A7 /* HMPlaintextLogger.m in Sources */,
+				90F6FC7E1ED66536004250A7 /* HMEncryptLogger.mm in Sources */,
+				90F6FCA11ED66739004250A7 /* shortlink_packer.cc in Sources */,
+				90F6FC861ED66536004250A7 /* HMLogDetailViewController.m in Sources */,
+				90F6FC9F1ED66739004250A7 /* longlink_packer.cc in Sources */,
+				90F6FC9E1ED66739004250A7 /* log_crypt.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		90F6FC471ED664CB004250A7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90F6FC481ED664CB004250A7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		90F6FC4C1ED664CB004250A7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90F6FC4D1ED664CB004250A7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		90F6FC501ED664CB004250A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		90F6FC511ED664CB004250A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		90F6FC531ED664CB004250A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 232F6B44C5544EECD0A40232 /* Pods-HMLoggerDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BPBCHD64GW;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../HMLogger/Mars\"";
+				INFOPLIST_FILE = HMLoggerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huami.HMLoggerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		90F6FC541ED664CB004250A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD6535F7CE737912B7E00C5C /* Pods-HMLoggerDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BPBCHD64GW;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../HMLogger/Mars\"";
+				INFOPLIST_FILE = HMLoggerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huami.HMLoggerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		90F6FC361ED664CB004250A7 /* Build configuration list for PBXProject "HMLoggerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90F6FC501ED664CB004250A7 /* Debug */,
+				90F6FC511ED664CB004250A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90F6FC521ED664CB004250A7 /* Build configuration list for PBXNativeTarget "HMLoggerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90F6FC531ED664CB004250A7 /* Debug */,
+				90F6FC541ED664CB004250A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 90F6FC331ED664CB004250A7 /* Project object */;
+}

@@ -1,0 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios,'7.0'
+
+workspace 'HMLoggerDemo'
+
+target :HMLoggerDemo do
+  xcodeproj 'HMLoggerDemo'
+    pod 'ICTextView', '~> 2.0.1'
+    pod 'CocoaLumberjack', '~> 3.2.0'
+end
