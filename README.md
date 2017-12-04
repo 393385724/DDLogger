@@ -1,4 +1,5 @@
 # DDLogger
+https://github.com/393385724/HMLogger 最新版本，该版本不在提交了
 a log redirect to file ，建议使用最新版本
 2.0.0版本采用<a href="https://github.com/CocoaLumberjack/CocoaLumberjack">CocoaLumberjack</a>与<a href="https://github.com/Tencent/mars">Xlog</a>的简单封装，在这里感谢两个开源框架
 
